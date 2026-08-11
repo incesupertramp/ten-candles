@@ -1,0 +1,55 @@
+# Changelog
+
+## v0.1.9
+
+- **Webcam negli slot (sperimentale)**: ogni sedia mostra il video A/V di Foundry del suo utente dentro lo slot-volto circolare; se il flusso non c'e (A/V spento o nessuna camera) resta il segnaposto.
+- Comando di diagnostica: game.system.api.debugCameras().
+
+## v0.1.8
+
+- **Sedie per account player** (non solo connessi): mostra da 2 a 4 sedie in base ai giocatori configurati.
+- **Info centrale leggibile**: spostata nella fascia libera in alto-centro con un pannellino scuro dietro (prima era coperta dalla candela davanti).
+
+## v0.1.7
+
+- **Plancia come tavolo-scena in prospettiva**: tavolo in legno visto dall'alto con pozza di luce, dieci candele realistiche (cera, colature, fiamma con alone e flicker) in anello ampio.
+- **Sedie adattive**: da 2 a 4 giocatori in semicerchio in base ai player collegati, GM di fronte; ogni sedia ha lo slot-volto (segnaposto, pronto per le webcam).
+- **Info al centro dell'anello** (candele accese, Scene, Player, GM): sempre leggibili.
+
+## v0.1.6
+
+- **✕ di chiusura nella barra sinistra** (area libera), invece che in alto a destra.
+- **Controlli e scritte della board sollevati** per non finire sotto le barre di Foundry (hotbar) e restare visibili/cliccabili.
+- Rimossa la barra-titolo interna che si sovrapponeva al toolbar sinistro (il Last Stand resta segnalato dal medaglione rosso).
+
+## v0.1.5
+
+- **Plancia in secondo piano**: ora è a tutto schermo ma SOTTO l'interfaccia di Foundry (legge lo z-index reale di #interface). Toolbar, sidebar e chat restano sopra e usabili.
+- **Pulsante di chiusura galleggiante**: una ✕ sempre in primo piano per chiudere la board (la ✕ interna resterebbe sotto le toolbar). Darken/New game si usano dal tracker; il click sulle candele al centro resta attivo.
+
+## v0.1.4
+
+- **Plancia di nuovo visibile**: torna a coprire lo schermo (z-index alto), ma lascia scoperta la colonna della sidebar a destra, così la chat resta usabile. Calcolo basato sul bordo sinistro della sidebar (affidabile su v13/v14).
+
+## v0.1.3
+
+- **Plancia collocata correttamente**: inserita dentro l'interfaccia di Foundry, sopra il canvas ma sotto la UI. Sidebar, chat e controlli restano sopra e cliccabili; niente più sovrapposizioni.
+
+## v0.1.2
+
+- **Plancia non invadente**: ora copre solo l'area del canvas; sidebar, chat e controlli di Foundry restano visibili e cliccabili.
+- **Conferma New game in-board**: niente più popup nascosto sotto la plancia; la conferma appare tra i controlli della board.
+
+## v0.1.1
+
+Correzioni per Foundry v14.
+
+- **Plancia a tutto schermo**: ripristinato il CSS della board (era stato rimosso per errore) e forzato l'overlay a coprire lo schermo sopra l'interfaccia (z-index alto). Ora la plancia si apre correttamente su v13 e v14.
+- **Pulsante toolbar**: rimosso `onClick` deprecato in favore di `onChange` (niente più avviso di deprecazione su v14).
+
+## v0.1.0
+
+Prima release.
+
+- Meccaniche complete: dieci candele, pool giocatori/GM sincronizzati, conflict roll interattivo (successo 6 / hope 5-6, scarto degli 1, narration rights), Trait/Moment/Brink, The Last Stand, fine partita.
+- Grafica candlelight: plancia circolare a tutto schermo, character sheet e conflict card a tema, flicker delle fiamme, rispetto di `prefers-reduced-motion`.

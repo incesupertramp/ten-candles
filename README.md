@@ -1,156 +1,148 @@
-# Ten Candles — Foundry VTT (game system)
+# Ten Candles — Unofficial Foundry VTT Game System
 
-Sistema **non ufficiale, fan-made** per giocare a *Ten Candles* (di Cavalry Games) su Foundry VTT.
+![Foundry](https://img.shields.io/badge/Foundry-v13%20%7C%20v14-informational)
+![Version](https://img.shields.io/badge/version-0.1.9-orange)
+![License](https://img.shields.io/badge/code%20license-MIT-green)
+![Status](https://img.shields.io/badge/status-beta-yellow)
 
-> **Legale / copyright.** Questo sistema contiene **solo le strutture meccaniche** necessarie a giocare: **nessun testo del manuale** è incluso. Per giocare serve possedere il manuale ufficiale *Ten Candles*, acquistato regolarmente. I contenuti narrativi (scenari, moduli, testi) vanno inseriti dal GM.
+An **unofficial, fan-made** game system that brings *Ten Candles* — the tragic horror storytelling game by **Cavalry Games** — to Foundry Virtual Tabletop. It recreates the ten dwindling candles, the shrinking dice pool, and the collaborative descent into the dark, wrapped in a candlelit table scene.
 
----
-
-## Requisiti
-
-- **Foundry VTT v13** (verificato). Gira anche su **v14** (comparirà come "non verificato", ma è abilitabile).
-- Nessuna dipendenza. *Dice So Nice* è supportato ma **facoltativo**.
-
-## Installazione (manuale, Fase 1)
-
-Non essendoci ancora un manifest pubblico, si installa a mano:
-
-1. Copia la cartella `ten-candles/` dentro la cartella `Data/systems/` del tuo Foundry
-   (percorso tipico: `…/FoundryVTT/Data/systems/ten-candles/`).
-2. Riavvia Foundry.
-3. **Create World** → seleziona *Ten Candles* come Game System.
-
-> In Fase 2, quando ci sarà un repository, si potrà installare via **Manifest URL**.
+> ⚠️ **Legal / disclaimer.** This project contains **only the game's mechanics** — **no rulebook text is included**. You must own a legally purchased copy of *Ten Candles* to play. All narrative content (scenarios, "modules", truths) is provided by your group. *Ten Candles* and its trademarks belong to Cavalry Games; this project is not affiliated with or endorsed by them.
 
 ---
 
-## Uso rapido
+## ✨ Features
 
-1. **Personaggi.** Actors → *Create Actor* → tipo **character**. Nella sheet: Concept, **Virtue**, **Vice**, **Moment**, **Brink**. (Gli hope die si guadagnano in gioco.)
-2. **Tracker.** Apri il tracker candele:
-   - pulsante 🔥 nella toolbar di sinistra, **oppure**
-   - da console / macro: `game.system.api.openTracker()`.
-3. **Nuova partita.** Nel tracker (come GM): **New game** → 10 candele, pool 10/0, scena 1.
-4. **Conflitto.** Dalla sheet del PG: **Conflict roll** (o **Dire conflict**). Nella card in chat: eventuale *Burn Trait* / *Embrace Brink*, poi **Apply outcome**.
+**Mechanics**
+- Ten shared candles as a dwindling resource, with automatic scene changes and refills.
+- Player dice pool (= lit candles) and GM dice pool (= 10 − lit), synced across all clients.
+- Interactive **conflict rolls** in chat: success on 6, Hope die on 5–6, loss of 1s, narration rights.
+- **Traits** (Virtue / Vice), **Moment** (→ Hope die) and **Brink** (embrace to reroll the pool).
+- **The Last Stand** and end-of-game handling, plus the ritual "These things are true…" prompts.
 
----
-
-## Mappa meccanica → implementazione
-
-| Meccanica (manuale) | Dove vive | Nota |
-|---|---|---|
-| Candele 10→0, mai riaccese | `GameState` (world setting) | `darkenCandle()` |
-| Pool giocatori = candele accese | `GameState` | refill a ogni scena |
-| Pool GM = 10 − candele accese | `GameState` | cresce col calare delle candele |
-| Successo su 6 / hope su 5-6 | `DiceEngine.evaluate()` | solo i 6 per la narrazione |
-| Scarto degli 1 su successo | `DiceEngine` → `loseDice()` | gli hope su 1 non si perdono |
-| Virtue / Vice (burn → reroll 1) | `TenCandlesActor.burnTrait()` | max 1 Trait per scena |
-| Moment → hope die | `TenCandlesActor.liveMoment()` | — |
-| Brink (embrace → reroll pool) | `DiceEngine` + `burnBrink()` | sblocco: Moment risolto + Trait bruciati |
-| Narration rights | `DiceEngine.evaluate()` | pareggio → GM |
-| The Last Stand (fail → morte) | `DiceEngine` + `die()` | 1 candela accesa |
-| Truths (frasi rituali) | `GameState` (chat) | numero truths = candele accese |
-
-**Architettura stato condiviso:** GM-autoritativo. I player inviano i comandi via **socket** al GM attivo (`game.users.activeGM`), unico a scrivere il world setting. Lettura libera per tutti; la UI si aggiorna sull'`onChange` del setting.
+**The table**
+- A **candlelit table scene** rendered in perspective, with ten volumetric, flickering candles.
+- **Adaptive seating**: 2–4 player chairs plus the GM opposite, based on your configured players.
+- **Face slots** on every chair that stream each user's **webcam** (experimental), with graceful fallback.
+- Fully vector (SVG), scales crisply, and respects `prefers-reduced-motion`.
 
 ---
 
-## Checklist QA (da eseguire in Foundry reale)
+## 📦 Requirements
 
-Spunta ogni voce. `[ ]` = da testare. Consigliato con **due client** (una finestra GM + una player) per validare il relay socket.
+- **Foundry VTT v13** (verified). Runs on **v14** (shown as unverified but enabled).
+- No dependencies. **Dice So Nice!** is supported but optional.
+- For webcam slots: enable Foundry's **Audio/Video** system.
 
-### A. Caricamento
-- [ ] Il system compare in *Create World* e il mondo si avvia senza errori in console.
-- [ ] In console (F12) compaiono i log `ten-candles | Initializing…` e `… Ready`.
+## 🚀 Installation
 
-### B. Character sheet (Comp. 4)
-- [ ] *Create Actor* tipo **character** → la sheet si apre.
-- [ ] Scrivere Concept/Virtue/Vice/Moment/Brink e chiudere/riaprire: i valori **persistono**.
-- [ ] `Alive` (checkbox) si salva.
-
-### C. Trait (Comp. 3 + 4)
-- [ ] **Burn** su Virtue → il campo si barra, notifica "reroll all dice showing 1".
-- [ ] Dopo un burn, **Burn** sull'altro Trait è **bloccato** nella stessa scena (regola 1/scena).
-- [ ] Burn su un Trait vuoto o già bruciato → notifica di avviso, nessun cambiamento.
-
-### D. Hope / Moment (Comp. 3 + 4)
-- [ ] **+1** hope → il contatore sale; **Reset** → 0.
-- [ ] **Live — success (+Hope)** → Moment marcato *Lived*, hope +1.
-- [ ] **Live — no success** → Moment *Lived*, hope invariato.
-
-### E. Brink derivato (Comp. 2)
-- [ ] Con Moment non vissuto o Trait non tutti bruciati → Brink = **Locked**.
-- [ ] Dopo aver vissuto il Moment **e** bruciato entrambi i Trait → Brink = **Available**.
-
-### F. Tracker / stato (Comp. 5a)
-- [ ] `openTracker()` apre la finestra; **New game** → `10 / 10`, pool **10 / 0**, scena **1**.
-- [ ] **Darken a candle** → candele **9**, pool player **9**, pool GM **1**, scena **2**; in chat compare l'annuncio scena + Truths (**"…Establish 9 truths…"**).
-- [ ] Portare le candele a **1** → badge **The Last Stand**; a **0** → **All candles are dark** + chat `"The world is dark."`.
-- [ ] **Relay socket:** dal client **player**, un'azione che spegne una candela (fallimento in un conflitto) aggiorna lo stato **anche sul client GM**. Con nessun GM connesso → notifica "No active GM".
-- [ ] Dopo un cambio scena, il flag "un Trait per scena" dei PG è **azzerato** (si può ri-burnare un Trait).
-
-### G. Conflict roll (Comp. 5b)
-- [ ] **Conflict roll** dalla sheet → card in chat con dadi player/(hope)/GM, esito, narration `(X vs Y)`.
-- [ ] I **6** appaiono verdi, gli **1** rossi.
-- [ ] **Burn Trait** sulla card (se ci sono 1) → ritira **solo** gli 1; se entrambi i Trait sono liberi appare il dialogo di scelta.
-- [ ] **Apply** su **successo** con almeno un 1 → il **pool player cala** del numero di 1 (verifica sul tracker).
-- [ ] **Apply** su **fallimento** (fuori Last Stand) → **si spegne una candela** e cambia scena.
-- [ ] **Embrace Brink** (quando disponibile e stai fallendo/perdendo narrazione) → ritira tutto il pool; se poi fallisce → Brink **burned**, hope **azzerati**, candela spenta.
-- [ ] In **Last Stand**, **Apply** su fallimento → il PG risulta **morto** (`Alive` off), niente candela spenta.
-- [ ] **Seize narration** (successo con narrazione al GM) → spegne una candela e chiude la card.
-- [ ] Una card **risolta** non risponde più ai click (nessuna doppia esecuzione).
-
-### H. Permessi
-- [ ] Un player **non** può agire sulla card di conflitto di un **altro** PG (notifica "You can only act on your own conflict").
-
----
-
-## Assunzioni prese (traduzione digitale)
-
-Segnalate anche nel codice; modificabili in una riga:
-
-1. **Sblocco Brink** = *Moment risolto* (`moment.lived`, a prescindere dall'esito) **e** entrambi i Trait bruciati.
-2. **Embrace Brink fallito in Last Stand** → morte del personaggio (invece dello spegnimento candela).
-3. A tirare il conflitto è il **proprietario** del PG (così può aggiornare la propria card).
-
-## Limiti noti / Backlog Fase 2
-
-- **Estetica**: tema horror, animazione candele, UX rifinita, ProseMirror per le note.
-- **Regole avanzate**: gestione completa di *Dire conflict*, *Martyrdom* (hope a un altro sopravvissuto), fase Truths interattiva (non solo annuncio in chat).
-- **Integrazioni**: Live Moment come vero conflict roll; migrazioni schema (`schemaVersion`); pulsante toolbar consolidato per la versione di Foundry in uso.
-- **Distribuzione**: manifest pubblico + zip release + eventuale README in inglese.
-
-## Struttura file
+**Via Manifest URL (recommended)** — in Foundry: *Game Systems → Install System*, then paste:
 
 ```
-ten-candles/
-├── system.json · template.json
-├── lang/en.json
-├── styles/
-│   ├── tokens.css            (Fase 2: design token candlelight)
-│   └── ten-candles.css       (stili: sheet, tracker, board, card)
-├── module/
-│   ├── ten-candles.mjs · config.mjs
-│   ├── data/character.mjs
-│   ├── documents/actor.mjs
-│   ├── sheets/character-sheet.mjs
-│   └── apps/game-state.mjs · candle-tracker.mjs · board.mjs · dice-engine.mjs
-└── templates/
-    ├── actor/character-sheet.hbs
-    ├── apps/candle-tracker.hbs · board.hbs
-    └── chat/conflict-card.hbs
+https://github.com/incesupertramp/ten-candles/releases/latest/download/system.json
 ```
 
-## Fase 2 — Grafica (candlelight)
+**Manual** — download the latest `ten-candles.zip` from [Releases](https://github.com/incesupertramp/ten-candles/releases), extract it into your Foundry `Data/systems/` folder (so that `Data/systems/ten-candles/system.json` exists), and restart Foundry.
 
-Restyle completo con tema *luce di candela nel buio*, senza modifiche alla logica:
-- **Design token** (`styles/tokens.css`): palette fissa scura, tipografia serif rituale, glow via `box-shadow`, e primitive di **flicker** irregolare per fiamme "vere" (rispetta `prefers-reduced-motion`).
-- **Character sheet**: carte-tratto che si incarboniscono quando `burned`, Brink `locked`/`available`, hope die ambrato.
-- **Plancia a tutto schermo** (`board.mjs`): dieci candele in cerchio dai dati live, fiamme con flicker sfasato, fumo sulle spente, click-to-darken (GM), stati Last Stand / game over. Apri con il pulsante toolbar o `game.system.api.openBoard()`.
-- **Tracker compatto**: versione mignon della board, con pulsante *Open full board*.
-- **Conflict card**: dadi 6 = scintilla d'ambra, 1 = dado spento sangue, hope tratteggiati.
+## ▶️ Quick start
 
-**Limite cosmetico noto:** lo stato tiene un *conteggio* di candele, non l'identità di ciascuna; cliccando una candela sulla board se ne spegne una (l'ultima accesa nel giro), non necessariamente quella cliccata. Correzione = piccolo cambio al data model, fuori dallo scope "solo grafica".
+1. Create a world using the **Ten Candles** system.
+2. Create **character** actors and fill in Concept, Virtue, Vice, Moment and Brink.
+3. Open the **board** — the flame button in the toolbar, or `game.system.api.openBoard()`.
+4. As GM, press **New game** to light the ten candles, then play: roll conflicts from a character sheet, and darken candles as the dark closes in.
 
-**Da verificare in Foundry reale (Fase 2):** overlay frameless a tutto schermo, pulsante toolbar (API scene-controls cambiata tra v13/v14 — c'è il fallback `openBoard()`), flicker SVG con `transform-box`, e la resa della card nel tema chiaro/scuro della chat.
+A full guide is available in **[MANUALE.pdf](MANUALE.pdf)** (Italian).
 
+## 🖼️ Screenshots
+
+<!-- Add your screenshots here, e.g.: ![The table](docs/board.png) -->
+*Coming soon.*
+
+---
+
+## 🗺️ Roadmap
+
+Planned mechanics and features are tracked in **[TODO.md](TODO.md)** — including the collaborative character-creation card passing, interactive Truths, dire conflicts and martyrdom, final recordings, and localization. Changes per release are in **[CHANGELOG.md](CHANGELOG.md)**.
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome. Please keep contributions focused on **mechanics and interface** only — never include text or artwork from the *Ten Candles* rulebook.
+
+## 📄 License
+
+The **code** in this repository is released under the **MIT License** (see `LICENSE`). This license covers the code only and does **not** extend to *Ten Candles*, which remains the intellectual property of Cavalry Games.
+
+## 🙏 Credits
+
+- *Ten Candles* © **Cavalry Games**.
+- System development: **incesupertramp**.
+
+---
+---
+
+# Ten Candles — Game System non ufficiale per Foundry VTT
+
+Sistema di gioco **non ufficiale, fan-made** che porta *Ten Candles* — il gioco di narrazione horror tragico di **Cavalry Games** — su Foundry Virtual Tabletop. Ricrea le dieci candele che si spengono, il pool di dadi che si assottiglia e la discesa collaborativa nel buio, dentro una scena-tavolo a lume di candela.
+
+> ⚠️ **Nota legale.** Questo progetto contiene **solo le meccaniche** del gioco — **nessun testo del manuale è incluso**. Per giocare serve possedere una copia regolarmente acquistata di *Ten Candles*. Tutti i contenuti narrativi (scenari, "moduli", verità) li fornisce il tuo gruppo. *Ten Candles* e i relativi marchi appartengono a Cavalry Games; questo progetto non è affiliato né approvato da loro.
+
+---
+
+## ✨ Funzionalità
+
+**Meccaniche**
+- Dieci candele condivise come risorsa che cala, con cambio scena e refill automatici.
+- Pool dadi giocatori (= candele accese) e pool GM (= 10 − accese), sincronizzati su tutti i client.
+- **Tiri di conflitto** interattivi in chat: successo su 6, Hope die su 5–6, scarto degli 1, diritti di narrazione.
+- **Trait** (Virtue / Vice), **Moment** (→ Hope die) e **Brink** (da abbracciare per ritirare il pool).
+- **The Last Stand** e gestione di fine partita, con le frasi rituali "These things are true…".
+
+**Il tavolo**
+- Una **scena-tavolo a lume di candela** in prospettiva, con dieci candele a volume che tremolano.
+- **Sedie adattive**: da 2 a 4 sedie player più il GM di fronte, in base ai giocatori configurati.
+- **Slot-volto** su ogni sedia che trasmettono la **webcam** di ciascun utente (sperimentale), con fallback.
+- Completamente vettoriale (SVG), nitido a ogni risoluzione, rispetta `prefers-reduced-motion`.
+
+---
+
+## 📦 Requisiti
+
+- **Foundry VTT v13** (verificata). Funziona su **v14** (segnalata come non verificata ma abilitabile).
+- Nessuna dipendenza. **Dice So Nice!** è supportato ma facoltativo.
+- Per gli slot webcam: attiva il sistema **Audio/Video** di Foundry.
+
+## 🚀 Installazione
+
+**Tramite Manifest URL (consigliato)** — in Foundry: *Game Systems → Install System*, poi incolla:
+
+```
+https://github.com/incesupertramp/ten-candles/releases/latest/download/system.json
+```
+
+**Manuale** — scarica l'ultimo `ten-candles.zip` dalle [Release](https://github.com/incesupertramp/ten-candles/releases), estrailo nella cartella `Data/systems/` di Foundry (così da avere `Data/systems/ten-candles/system.json`), e riavvia Foundry.
+
+## ▶️ Avvio rapido
+
+1. Crea un mondo con il sistema **Ten Candles**.
+2. Crea gli attori **character** e compila Concept, Virtue, Vice, Moment e Brink.
+3. Apri la **plancia** — il pulsante fiamma nella toolbar, oppure `game.system.api.openBoard()`.
+4. Come GM, premi **New game** per accendere le dieci candele, poi gioca: lancia i conflitti dalla scheda e spegni le candele mentre il buio avanza.
+
+Guida completa nel **[MANUALE.pdf](MANUALE.pdf)**.
+
+## 🗺️ Roadmap
+
+Le meccaniche e funzionalità pianificate sono in **[TODO.md](TODO.md)** — tra cui la creazione collaborativa dei personaggi, le Truths interattive, i dire conflict e il martyrdom, le final recordings e la localizzazione. Le modifiche per versione sono in **[CHANGELOG.md](CHANGELOG.md)**.
+
+## 🤝 Contribuire
+
+Issue e pull request sono benvenute. Mantieni i contributi focalizzati **solo su meccaniche e interfaccia** — non includere mai testo o illustrazioni del manuale di *Ten Candles*.
+
+## 📄 Licenza
+
+Il **codice** di questo repository è rilasciato con licenza **MIT** (vedi `LICENSE`). La licenza copre solo il codice e **non** si estende a *Ten Candles*, che resta proprietà intellettuale di Cavalry Games.
+
+## 🙏 Crediti
+
+- *Ten Candles* © **Cavalry Games**.
+- Sviluppo del sistema: **incesupertramp**.
