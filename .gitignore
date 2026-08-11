@@ -1,0 +1,24 @@
+# Artefatti di build (lo zip lo genera la GitHub Action)
+ten-candles.zip
+/dist/
+/build/
+
+# File di sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*~
+
+# Node (se in futuro aggiungi tooling)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Log e temporanei
+*.log
+*.tmp
