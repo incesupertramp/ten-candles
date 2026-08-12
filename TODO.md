@@ -54,6 +54,19 @@ Meccanica emotiva del finale: ogni giocatore registra un ultimo messaggio del pe
 
 ---
 
+## Planchette della tavola ouija (spirito/GM)
+
+Rifinire la planchette-master oltre lo stato attuale (punta a una lettera derivata dallo stato e "salta" a una nuova lettera quando il GM agisce).
+
+- [ ] 🟡 **Movimento fluido** — la planchette **scivola** verso la lettera bersaglio invece di saltare (transizione/`animateTransform` calcolando delta posizione tra un render e l'altro in `_onRender`).
+- [ ] 🟡 **Scia luminosa** — debole traccia ambra dietro la planchette mentre si muove (vende "lo spirito indica").
+- [ ] 🟡 **Trigger su narrazione/azione del GM** — muovere la planchette quando il master **narra/agisce** (non solo su spegnimento candela): hook su evento dedicato + eventuale API `game.system.api.pointPlanchette(char)`.
+- [ ] 🟢 **Controllo GM manuale** — il master può far indicare alla planchette una **lettera/parola specifica** (input o clic sulla lettera) per "comporre" un messaggio dello spirito.
+- [ ] 🟢 **Effetto sonoro** — leggero scorrimento/legno quando la planchette si muove (con toggle).
+- [ ] 🟢 **Idle ritmico** — micro-oscillazione a riposo (già presente il pulsare dell'alone), opzionale via impostazioni.
+
+---
+
 ## UX e qualità
 
 - [ ] 🟡 **Animazione di spegnimento** — dissolvenza della fiamma + fumo che parte quando una candela si spegne.
