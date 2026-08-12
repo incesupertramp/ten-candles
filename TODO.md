@@ -15,8 +15,8 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 - [ ] 🟡 **Introduzione del Module** — area per il testo di scenario e l'apertura "These things are true. The world is dark." *Mancante*.
 
 ### Fase Truths (tra le scene)
-- [ ] 🔴 **Truths interattive e ordinate** — apertura del GM, giro **in senso orario**, numero di verità = candele accese; chi ha **fallito il conflitto / seized** stabilisce la **prima** verità (altrimenti il GM); chiusura corale **"And we are alive"** (ultima verità collettiva). *Parziale* (oggi solo annuncio in chat).
-- [ ] 🟡 **Registro delle verità** — lista condivisa delle verità stabilite che cresce durante la partita. *Mancante*.
+- [~] 🔴 **Truths interattive** — pannello nel tracker con apertura del rito, raccolta condivisa delle verità (chiunque le aggiunge, sincronizzate), progressione N = candele accese, auto-chiusura con **"And we are alive"** + riepilogo in chat. **Fatto** il flusso interattivo; **ancora da fare**: ordine dei turni (giro orario) e regola su chi stabilisce la **prima** verità (fallito/seized → GM).
+- [x] 🟡 **Registro delle verità** — le verità raccolte compaiono in lista nel tracker e vengono riepilogate in chat a fine rito.
 
 ### Risoluzione dei conflitti
 - [x] 🔴 **Live Moment come conflitto reale** — vivere il Moment tira un conflitto vero; l'Hope die arriva in automatico sul successo. *Parziale* (oggi bottoni success/fail manuali).
@@ -39,11 +39,11 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 
 Meccanica emotiva del finale: ogni giocatore registra un ultimo messaggio del personaggio; il GM le custodisce e le riproduce **alla fine** (dopo l'ultima candela). Non è solo grafica: tocca `die()` e il game over.
 
-- [ ] 🟡 **Dato** — campo `recording = { path, hidden }` sul character DataModel; `hidden` di default → visibile solo al GM (rispetta la sorpresa).
+- [x] 🟡 **Dato** — campo `recording = { path, hidden }` sul character DataModel; `hidden` di default → visibile solo al GM (rispetta la sorpresa).
 - [ ] 🟡 **Opzione A — manuale via Discord vocale** — i giocatori registrano col telefono/Discord, il GM riproduce nel canale vocale. *Nessun codice*, fedele al rito.
-- [ ] 🟡 **Opzione B — in-app (consigliata)** — upload di un file audio sulla scheda (`FilePicker`), playback **broadcast** con `foundry.audio.AudioHelper.play({src, volume}, true)`, con trigger automatici su `actor.die()` e su **game over** (tutte in sequenza) + controllo GM per riprodurle/rigiocarle.
+- [x] 🟡 **Opzione B — in-app (consigliata)** — upload di un file audio sulla scheda (`FilePicker`), playback **broadcast** con `foundry.audio.AudioHelper.play({src, volume}, true)`, con trigger automatici su `actor.die()` e su **game over** (tutte in sequenza) + controllo GM per riprodurle/rigiocarle.
 - [ ] 🟢 **Opzione C — registrazione in-app** — `MediaRecorder` dentro una app ApplicationV2, salvataggio sul server Foundry. *Alto sforzo, dopo la B*.
-- [ ] 🟡 **Privacy** — le registrazioni restano nascoste ai player fino al momento della riproduzione (flag GM-only).
+- [~] 🟡 **Privacy** — le registrazioni restano nascoste ai player fino al momento della riproduzione (flag GM-only).
 
 ---
 
@@ -58,8 +58,8 @@ Meccanica emotiva del finale: ogni giocatore registra un ultimo messaggio del pe
 
 Rifinire la planchette-master oltre lo stato attuale (punta a una lettera derivata dallo stato e "salta" a una nuova lettera quando il GM agisce).
 
-- [ ] 🟡 **Movimento fluido** — la planchette **scivola** verso la lettera bersaglio invece di saltare (transizione/`animateTransform` calcolando delta posizione tra un render e l'altro in `_onRender`).
-- [ ] 🟡 **Scia luminosa** — debole traccia ambra dietro la planchette mentre si muove (vende "lo spirito indica").
+- [x] 🟡 **Movimento fluido** — la planchette **scivola** verso la lettera bersaglio invece di saltare (transizione/`animateTransform` calcolando delta posizione tra un render e l'altro in `_onRender`).
+- [x] 🟡 **Scia luminosa** — debole traccia ambra dietro la planchette mentre si muove (vende "lo spirito indica").
 - [ ] 🟡 **Trigger su narrazione/azione del GM** — muovere la planchette quando il master **narra/agisce** (non solo su spegnimento candela): hook su evento dedicato + eventuale API `game.system.api.pointPlanchette(char)`.
 - [ ] 🟢 **Controllo GM manuale** — il master può far indicare alla planchette una **lettera/parola specifica** (input o clic sulla lettera) per "comporre" un messaggio dello spirito.
 - [ ] 🟢 **Effetto sonoro** — leggero scorrimento/legno quando la planchette si muove (con toggle).

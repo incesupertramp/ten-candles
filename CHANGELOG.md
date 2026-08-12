@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.2.10 — Recording: sezione sempre visibile
+
+- La **registrazione finale** ora è **sempre visibile** sulla scheda (non più solo in modifica): campo + pulsante FilePicker per l'owner, pulsante di ascolto per il GM.
+- Aggiunta scorciatoia `game.system.api.playRecordings()` per provare la riproduzione senza arrivare al game over.
+
+## v0.2.9 — Final recordings (audio finale)
+
+- Nuovo campo **registrazione finale** sul personaggio (`recording.path`, riservata al GM).
+- Sulla scheda: **FilePicker audio** per caricare l'ultimo messaggio (in modifica) e pulsante di ascolto per il GM.
+- Riproduzione **broadcast** a tutto il tavolo (`AudioHelper.play(..., true)`) e pulsante **"Riproduci le registrazioni finali"** nel tracker al game over, che le suona **in sequenza**.
+- Localizzazione EN/IT aggiornata.
+
+## v0.2.8 — Verità interattive + planchette fluida
+
+- **Blocco B — Verità interattive**: allo spegnimento di una candela (≥2 accese) si apre la fase Truths nel tracker — rito d'apertura, raccolta condivisa e sincronizzata delle verità (chiunque le aggiunge), progressione N = candele accese, auto-chiusura con «E noi siamo vivi» e riepilogo in chat. Il GM può chiudere in anticipo.
+- **Planchette**: ora **scivola** verso la nuova lettera quando il master agisce, con **scia luminosa** che sfuma (rispetta prefers-reduced-motion).
+
+## v0.2.7 — Localizzazione italiana
+
+- **Traduzione italiana completa** (`lang/it.json`, 91 stringhe) e registrazione della lingua nel manifest: schede, tracker, plancia, carte di conflitto e notifiche in italiano.
+- Aggiornato il TODO con le feature della planchette della tavola ouija.
+
 ## v0.2.6 — Board seduta spiritica (top-down)
 
 - **Board ridisegnata da zero** in vista dall'alto, generata per geometria: tavolo tondo di legno con **tavola ouija** (OUIJA, YES/NO, sole/luna, A-Z, numeri, GOOD BYE).
