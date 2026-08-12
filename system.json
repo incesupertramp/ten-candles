@@ -2,7 +2,7 @@
   "id": "ten-candles",
   "title": "Ten Candles",
   "description": "Unofficial, fan-made game system for playing Ten Candles (by Cavalry Games) on Foundry VTT. Requires ownership of the official Ten Candles rulebook. No rulebook text is bundled.",
-  "version": "0.1.9",
+  "version": "0.2.6",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
@@ -36,5 +36,5 @@
   "secondaryTokenAttribute": null,
   "url": "https://github.com/incesupertramp/ten-candles",
   "manifest": "https://github.com/incesupertramp/ten-candles/releases/latest/download/system.json",
-  "download": "https://github.com/incesupertramp/ten-candles/releases/download/v0.1.9/ten-candles.zip"
+  "download": "https://github.com/incesupertramp/ten-candles/releases/download/v0.2.6/ten-candles.zip"
 }

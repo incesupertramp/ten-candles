@@ -19,10 +19,10 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 - [ ] 🟡 **Registro delle verità** — lista condivisa delle verità stabilite che cresce durante la partita. *Mancante*.
 
 ### Risoluzione dei conflitti
-- [ ] 🔴 **Live Moment come conflitto reale** — vivere il Moment tira un conflitto vero; l'Hope die arriva in automatico sul successo. *Parziale* (oggi bottoni success/fail manuali).
-- [ ] 🟡 **Seize su conflitto fallito** — spegnere una candela **addizionale** (2 in totale) per prendere la narrazione di un fallimento. *Parziale* (oggi seize solo su successo).
-- [ ] 🟡 **Dire conflict completo** — conseguenze gravi + **morte volontaria**: su un dire fallito un giocatore può scegliere di morire e **vincere la narrazione** del conflitto fallito. *Parziale* (oggi solo il flag "dire").
-- [ ] 🟢 **GM narra sempre i conflitti falliti** (tranne morte volontaria) — enforcement della regola nella narration. *Sfumatura mancante*.
+- [x] 🔴 **Live Moment come conflitto reale** — vivere il Moment tira un conflitto vero; l'Hope die arriva in automatico sul successo. *Parziale* (oggi bottoni success/fail manuali).
+- [x] 🟡 **Seize su conflitto fallito** — spegnere una candela **addizionale** (2 in totale) per prendere la narrazione di un fallimento. *Parziale* (oggi seize solo su successo).
+- [x] 🟡 **Dire conflict completo** — conseguenze gravi + **morte volontaria**: su un dire fallito un giocatore può scegliere di morire e **vincere la narrazione** del conflitto fallito. *Parziale* (oggi solo il flag "dire").
+- [x] 🟢 **GM narra sempre i conflitti falliti** (tranne morte volontaria) — enforcement della regola nella narration. *Sfumatura mancante*.
 
 ### Morte e candele
 - [ ] 🟡 **Martyrdom** — una morte eroica assegna un Hope die a un altro sopravvissuto. *Mancante*.

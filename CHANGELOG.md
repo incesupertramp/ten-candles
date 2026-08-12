@@ -1,5 +1,53 @@
 # Changelog
 
+## v0.2.6 — Board seduta spiritica (top-down)
+
+- **Board ridisegnata da zero** in vista dall'alto, generata per geometria: tavolo tondo di legno con **tavola ouija** (OUIJA, YES/NO, sole/luna, A-Z, numeri, GOOD BYE).
+- **Planchette-master** con la webcam del GM che punta a una lettera e si sposta quando il master agisce (spegne candele / cambia scena).
+- **10 candele in anello** con fumo, alone caldo sul legno e cera fredda quando spente.
+- **Webcam dei giocatori in cerchio** attorno al tavolo (2–6, adattive).
+- **Cerchio rituale** (pentagramma) che si intensifica al calare delle candele; **Last Stand** con velo rosso e rituale color sangue. Animazioni disattivate con prefers-reduced-motion.
+
+## v0.2.5 — Seduta: geometria e riempimento schermo
+
+- **Tavolo tondo più piccolo** con le sedie **tutte attorno** e visibili (prima quelle laterali finivano coperte dal tavolo).
+- **Planchette al centro più grande e chiara**, con lo slot dello spirito ben leggibile.
+- **La scena riempie l'area** della board invece di restare piccola e centrata.
+- Sipari più sottili e info in alto ricollocate.
+
+## v0.2.4 — Seduta spiritica
+
+- **Sedie player in cerchio completo** attorno al tavolo (2–4, adattive), con vuoto in alto per le info.
+- **Nessuna sedia per il GM**: al centro una **planchette** con lo slot dello spirito (webcam del GM), alone ambra pulsante ed etichetta "THE SPIRIT".
+- Info (candele/scena/pool) spostate in alto; la board resta legata ai dati e alla scenografia teatrale.
+
+## v0.2.3 — Finezze sceniche
+
+- **Fumo leggero** che sale dalle candele accese; **pozze di luce** calde sotto ognuna.
+- **Cera fredda** che si accumula attorno alle candele spente.
+- **Pulviscolo** che fluttua nel fascio del riflettore e leggero **respiro** della luce.
+- **Reattività al Last Stand**: ribalta e riflettore si abbassano, un velo rosso cala sulla scena (e sparisce col game over).
+- Nomi lunghi troncati con eleganza sulle sedie. Tutte le animazioni rispettano prefers-reduced-motion.
+
+## v0.2.2 — Plancia teatrale
+
+- **Palcoscenico**: sipari bordeaux e mantovana incorniciano la scena, pavimento del palco in prospettiva con luci di ribalta, riflettore sul tavolo e vignettatura.
+- **Cerchio rituale** inciso attorno ai giocatori, che **si intensifica man mano che le candele si spengono** (e vira al sangue nel Last Stand).
+
+## v0.2.1 — Scheda ridisegnata
+
+- **Restyle candlelit** coerente col tavolo: Trait a carte (si incarboniscono quando bruciati), Moment e Brink in fasce, Brink che si accende da solo quando disponibile.
+- **Hope come fiammelle cliccabili** (clic per accendere/spegnere) al posto dei bottoni +/reset.
+- **Modalità lettura + tasto Modifica**: i campi sono in sola lettura finché non premi "Edit".
+- **Stato vivo/morto** dalla fiamma in alto (smorza la scheda da morto).
+
+## v0.2.0 — Blocco A: Conflitti
+
+- **GM narra sempre i conflitti falliti** (salvo seize o morte volontaria).
+- **Seize su fallimento**: prendere la narrazione di un conflitto fallito costa una candela addizionale (2 totali); su successo resta 1.
+- **Dire + morte volontaria**: su un dire fallito compare "Choose death" — il PG muore e narra il conflitto fallito.
+- **Live Moment come tiro reale**: nuovo bottone sulla scheda che gioca il Moment come conflitto (Hope automatico sul successo); restano anche i bottoni manuali success/fail.
+
 ## v0.1.9
 
 - **Webcam negli slot (sperimentale)**: ogni sedia mostra il video A/V di Foundry del suo utente dentro lo slot-volto circolare; se il flusso non c'e (A/V spento o nessuna camera) resta il segnaposto.
