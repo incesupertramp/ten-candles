@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.0 — Table safety, scenario, book of truths
+
+- **Safety tools**: a new **Scenario & Safety** app (tracker button, `game.system.api.openSafety()`). It includes an **X-Card** anyone can tap (a chat announcement to pause/adjust a scene) and shared **Lines & Veils** from Session Zero.
+- **Module text**: the GM writes the setting and opening; it's shown in chat at New game.
+- **Book of Truths**: a **persistent** log collecting every established truth, scene by scene (they used to only go to chat and reset). EN/IT localization.
+
+## v0.3.9 — Ordered turns + planchette idle
+
+- **Truths turn order**: the **first truth** goes to whoever **failed/seized** the conflict (otherwise the GM); then the turn **advances clockwise** with each submitted truth. The GM can always override the turn.
+- **Planchette idle**: at rest the planchette **sways** gently (in addition to the pulsing aura), without interfering with position and rotation. Respects settings and prefers-reduced-motion.
+
 ## v0.3.8 — Polish: living planchette, audio, rich-text notes
 
 - **Planchette on narration**: when the GM posts to chat (not rolls/whispers/system announcements) the **spirit stirs** with a glow on the board.

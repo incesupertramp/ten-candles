@@ -12,10 +12,10 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 - [~] 🔴 **Brink scritti dai vicini** — passo "brink": ognuno scrive il Brink per il vicino di **sinistra**. **Fatto** nel flusso guidato.
 - [~] 🔴 **Brink del GM e antagonista "Them"** — passo **"Them"** nel flusso: il GM scrive il **Brink di Them** (antagonista, annunciato in chat a fine creazione) e un **Brink per un personaggio a scelta** ("They have seen you…"). **Fatto** come regia GM; **da rifinire**: assegnazione automatica in base alla posizione (sinistra/destra del GM) e scrittura del Brink di Them da parte del giocatore designato.
 - [x] 🟡 **Accensione progressiva delle candele** — durante la creazione le candele si accendono a gruppi: 3 (Traits) + 3 (Moments) + 3 (Brinks) + 1 (fine). Aggiunto anche il passo **Moment** (ognuno scrive il proprio) al flusso.
-- [ ] 🟡 **Introduzione del Module** — area per il testo di scenario e l'apertura "These things are true. The world is dark." *Mancante*.
+- [x] 🟡 **Introduzione del Module** — testo di scenario editabile dal GM (app Scenario & Sicurezza), mostrato in chat all'avvio della partita.
 
 ### Fase Truths (tra le scene)
-- [~] 🔴 **Truths interattive** — pannello nel tracker con apertura del rito, raccolta condivisa delle verità (chiunque le aggiunge, sincronizzate), progressione N = candele accese, auto-chiusura con **"And we are alive"** + riepilogo in chat. **Fatto** il flusso interattivo; **ordine turni**: il GM può assegnare il turno (indicatore "tocca a…") in Verità e creazione. *Resta*: automatismo orario e regola sulla prima verità.
+- [x] 🔴 **Truths interattive** — pannello nel tracker con apertura del rito, raccolta condivisa delle verità (chiunque le aggiunge, sincronizzate), progressione N = candele accese, auto-chiusura con **"And we are alive"** + riepilogo in chat. **Fatto** il flusso interattivo; **ordine turni** in senso orario (avanza a ogni verità) con la **prima verità** assegnata a chi ha fallito/seized il conflitto (altrimenti il GM). Il GM può comunque forzare il turno.
 - [x] 🟡 **Registro delle verità** — le verità raccolte compaiono in lista nel tracker e vengono riepilogate in chat a fine rito.
 
 ### Risoluzione dei conflitti
@@ -63,7 +63,7 @@ Rifinire la planchette-master oltre lo stato attuale (punta a una lettera deriva
 - [x] 🟡 **Trigger su narrazione del GM** — quando il GM scrive in chat (non tiri/whisper/annunci di sistema) lo **spirito si ravviva** (bagliore) sulla plancia. API `pointPlanchette`/`spellWord` già presenti.
 - [x] 🟢 **Controllo GM manuale** — pannello nel tracker per far **comporre una parola** alla planchette (indica le lettere in sequenza) + `game.system.api.spellWord()` / `pointPlanchette()`.
 - [x] 🟢 **Effetto sonoro** — suono procedurale di scivolamento quando la planchette si muove (impostazione, default off).
-- [~] 🟢 **Idle ritmico** — l'alone dello spirito **pulsa** a riposo; micro-oscillazione di movimento non aggiunta (eviterebbe conflitti col transform base).
+- [x] 🟢 **Idle ritmico** — la planchette **dondola** leggermente a riposo (gruppo interno dedicato, niente conflitti col transform di posizione) + l'alone che pulsa.
 
 ---
 

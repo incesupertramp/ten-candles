@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.0 — Sicurezza al tavolo, scenario, libro delle Verità
+
+- **Strumenti di sicurezza**: nuova app **Scenario & Sicurezza** (pulsante nel tracker, `game.system.api.openSafety()`). Include una **X-Card** che chiunque può premere (annuncio in chat per fermare/aggiustare una scena) e i **Lines & Veils** condivisi della Session Zero.
+- **Testo del Module**: il GM scrive l'ambientazione e l'apertura; viene mostrata in chat all'avvio della partita.
+- **Libro delle Verità**: registro **persistente** che raccoglie tutte le verità stabilite, scena per scena (prima finivano solo in chat e si azzeravano). Localizzazione EN/IT.
+
+## v0.3.9 — Turni ordinati + idle della planchette
+
+- **Ordine dei turni nelle Verità**: la **prima verità** spetta a chi ha **fallito/seized** il conflitto (altrimenti il GM); poi il turno **avanza in senso orario** a ogni verità inviata. Il GM può sempre forzare il turno.
+- **Idle della planchette**: a riposo la planchette **dondola** leggermente (oltre all'alone che pulsa), senza interferire con posizione e rotazione. Rispetta impostazioni e prefers-reduced-motion.
+
 ## v0.3.8 — Rifiniture: planchette viva, audio, note rich text
 
 - **Planchette su narrazione**: quando il GM scrive in chat (non tiri/whisper/annunci di sistema) lo **spirito si ravviva** con un bagliore sulla plancia.
