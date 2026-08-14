@@ -8,14 +8,14 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 ## Meccaniche di gioco (verificate sul manuale)
 
 ### Creazione del personaggio (collaborativa)
-- [ ] 🔴 **Passaggio delle carte Trait** — non scegli i tuoi Trait: ognuno scrive una Virtue e la passa **a destra**, scrive un Vice e lo passa **a sinistra**. *Mancante* (oggi i campi si compilano da soli).
-- [ ] 🔴 **Brink scritti dai vicini** — ognuno scrive il Brink per il giocatore alla **propria sinistra** ("I've seen you…"); conosci il tuo Brink e quello del vicino. *Mancante*.
-- [ ] 🔴 **Brink del GM e antagonista "Them"** — il giocatore alla **sinistra del GM** riceve un Brink dal GM ("They have seen you…"); il giocatore alla **destra del GM** scrive il Brink di **Them** ("I have seen Them…"), definendo l'antagonista. *Mancante*.
-- [ ] 🟡 **Accensione progressiva delle candele** — 3 (Step Traits) + 3 (Step Moments) + 3 (Step Brinks) + 1 (prima della prima scena / recording). *Mancante* (oggi solo New game = 10 in un colpo).
+- [~] 🔴 **Passaggio delle carte Trait** — flusso guidato nel tracker: ognuno scrive la **Virtù per il vicino di destra** e il **Vizio per il vicino di sinistra**; le scritture arrivano sul personaggio bersaglio via il canale GM-autoritativo. **Fatto** il motore di assegnazione ai vicini; **da rifinire**: passaggio a "carte" vero e ordine turni.
+- [~] 🔴 **Brink scritti dai vicini** — passo "brink": ognuno scrive il Brink per il vicino di **sinistra**. **Fatto** nel flusso guidato.
+- [~] 🔴 **Brink del GM e antagonista "Them"** — passo **"Them"** nel flusso: il GM scrive il **Brink di Them** (antagonista, annunciato in chat a fine creazione) e un **Brink per un personaggio a scelta** ("They have seen you…"). **Fatto** come regia GM; **da rifinire**: assegnazione automatica in base alla posizione (sinistra/destra del GM) e scrittura del Brink di Them da parte del giocatore designato.
+- [x] 🟡 **Accensione progressiva delle candele** — durante la creazione le candele si accendono a gruppi: 3 (Traits) + 3 (Moments) + 3 (Brinks) + 1 (fine). Aggiunto anche il passo **Moment** (ognuno scrive il proprio) al flusso.
 - [ ] 🟡 **Introduzione del Module** — area per il testo di scenario e l'apertura "These things are true. The world is dark." *Mancante*.
 
 ### Fase Truths (tra le scene)
-- [~] 🔴 **Truths interattive** — pannello nel tracker con apertura del rito, raccolta condivisa delle verità (chiunque le aggiunge, sincronizzate), progressione N = candele accese, auto-chiusura con **"And we are alive"** + riepilogo in chat. **Fatto** il flusso interattivo; **ancora da fare**: ordine dei turni (giro orario) e regola su chi stabilisce la **prima** verità (fallito/seized → GM).
+- [~] 🔴 **Truths interattive** — pannello nel tracker con apertura del rito, raccolta condivisa delle verità (chiunque le aggiunge, sincronizzate), progressione N = candele accese, auto-chiusura con **"And we are alive"** + riepilogo in chat. **Fatto** il flusso interattivo; **ordine turni**: il GM può assegnare il turno (indicatore "tocca a…") in Verità e creazione. *Resta*: automatismo orario e regola sulla prima verità.
 - [x] 🟡 **Registro delle verità** — le verità raccolte compaiono in lista nel tracker e vengono riepilogate in chat a fine rito.
 
 ### Risoluzione dei conflitti
@@ -25,13 +25,13 @@ La sezione "Meccaniche di gioco" nasce da una verifica diretta sul manuale uffic
 - [x] 🟢 **GM narra sempre i conflitti falliti** (tranne morte volontaria) — enforcement della regola nella narration. *Sfumatura mancante*.
 
 ### Morte e candele
-- [ ] 🟡 **Martyrdom** — una morte eroica assegna un Hope die a un altro sopravvissuto. *Mancante*.
-- [ ] 🔴 **Identità delle candele** — spegnere *esattamente* la candela cliccata (oggi si spegne l'ultima accesa del giro). Richiede un array di stati candela invece del conteggio. *Parziale/cosmetico*.
+- [x] 🟡 **Martyrdom** — sulla scheda di un personaggio morto: seleziona un sopravvissuto e donagli un Hope die (annuncio in chat).
+- [x] 🔴 **Identità delle candele** — stato candele come **array** di accese/spente; sulla plancia il GM **clicca la candela precisa** per spegnerla (animazione sulla candela giusta).
 
 ### Personaggio e antagonista
-- [ ] 🟡 **Segretezza del Brink** — nascondere il valore del Brink ai non-proprietari (visibile solo il proprio e quello del vicino di sinistra). *Parziale* (esiste il concetto, non l'ownership).
-- [ ] 🟡 **Rappresentazione di "Them"** — l'antagonista come entità/attore definito dal Brink del giocatore a destra del GM. *Mancante*.
-- [ ] 🟢 **Supplies / equipment** (Step Seven) — item type opzionale per l'equipaggiamento. *Mancante*.
+- [x] 🟡 **Segretezza del Brink** — il valore del Brink è mascherato ai non-proprietari sulla scheda; lo vedono solo proprietario e GM.
+- [x] 🟡 **Rappresentazione di "Them"** — pannello persistente nel tracker con il Brink dell'antagonista una volta definito (visibile al tavolo come minaccia condivisa).
+- [x] 🟢 **Supplies / equipment** — tipo di item **supply** con **quantità/consumo**, sezione nella scheda (aggiungi / +1 / usa / rimuovi) e scheda item dedicata.
 
 ---
 
@@ -60,28 +60,28 @@ Rifinire la planchette-master oltre lo stato attuale (punta a una lettera deriva
 
 - [x] 🟡 **Movimento fluido** — la planchette **scivola** verso la lettera bersaglio invece di saltare (transizione/`animateTransform` calcolando delta posizione tra un render e l'altro in `_onRender`).
 - [x] 🟡 **Scia luminosa** — debole traccia ambra dietro la planchette mentre si muove (vende "lo spirito indica").
-- [ ] 🟡 **Trigger su narrazione/azione del GM** — muovere la planchette quando il master **narra/agisce** (non solo su spegnimento candela): hook su evento dedicato + eventuale API `game.system.api.pointPlanchette(char)`.
-- [ ] 🟢 **Controllo GM manuale** — il master può far indicare alla planchette una **lettera/parola specifica** (input o clic sulla lettera) per "comporre" un messaggio dello spirito.
-- [ ] 🟢 **Effetto sonoro** — leggero scorrimento/legno quando la planchette si muove (con toggle).
-- [ ] 🟢 **Idle ritmico** — micro-oscillazione a riposo (già presente il pulsare dell'alone), opzionale via impostazioni.
+- [x] 🟡 **Trigger su narrazione del GM** — quando il GM scrive in chat (non tiri/whisper/annunci di sistema) lo **spirito si ravviva** (bagliore) sulla plancia. API `pointPlanchette`/`spellWord` già presenti.
+- [x] 🟢 **Controllo GM manuale** — pannello nel tracker per far **comporre una parola** alla planchette (indica le lettere in sequenza) + `game.system.api.spellWord()` / `pointPlanchette()`.
+- [x] 🟢 **Effetto sonoro** — suono procedurale di scivolamento quando la planchette si muove (impostazione, default off).
+- [~] 🟢 **Idle ritmico** — l'alone dello spirito **pulsa** a riposo; micro-oscillazione di movimento non aggiunta (eviterebbe conflitti col transform base).
 
 ---
 
 ## UX e qualità
 
-- [ ] 🟡 **Animazione di spegnimento** — dissolvenza della fiamma + fumo che parte quando una candela si spegne.
-- [ ] 🟡 **Localizzazione italiana** (`lang/it.json`) e struttura per altre lingue.
-- [ ] 🟡 **Impostazioni di sistema** (`game.settings`) — toggle: animazioni on/off, comportamento board, Dice So Nice.
+- [x] 🟡 **Animazione di spegnimento** — quando una candela si spegne, sulla plancia la fiamma sfuma e parte uno sbuffo di fumo (rispetta impostazioni/reduced-motion).
+- [x] 🟡 **Localizzazione italiana** (`lang/it.json`) e struttura per altre lingue — completa (EN/IT).
+- [x] 🟡 **Impostazioni di sistema** (`game.settings`) — animazioni della plancia on/off (client), effetto mangianastri on/off + intensità (world).
 - [ ] 🟡 **Pulsante toolbar consolidato** — gestione pulita delle API scene-controls di v13 **e** v14 (rimuovere il best-effort).
-- [ ] 🟢 **ProseMirror** per le note della scheda (oggi textarea).
-- [ ] 🟢 **Audio ambient** opzionale (crepitio/candela) con toggle.
-- [ ] 🟢 **Preset Dice So Nice** a tema (dadi di cera/ambra).
-- [ ] 🟢 **Migrazioni schema** — hook in `ready` che confronta `schemaVersion` ed esegue le migrazioni.
+- [x] 🟢 **ProseMirror** per le note della scheda (editor rich text al posto della textarea).
+- [x] 🟢 **Audio ambient** opzionale — crackle procedurale di candele mentre la plancia è aperta (impostazione, default off).
+- [x] 🟢 **Preset Dice So Nice** a tema (cera/ambra) — registrato via hook, solo se il modulo è presente.
+- [x] 🟢 **Migrazioni schema** — hook in `ready` che confronta `schemaVersion` (setting world) ed esegue le migrazioni; scaffold pronto (nessuna trasformazione necessaria alla v1).
 
 ## Distribuzione e infrastruttura
 
-- [ ] 🔴 **LICENSE** — licenza per il **codice**, con dicitura che separa il tuo lavoro dai contenuti protetti di *Ten Candles*.
-- [ ] 🟡 **Verifica su v14** e bump di `compatibility.verified`.
-- [ ] 🟡 **CHANGELOG.md** e note di release per ogni versione.
-- [ ] 🟢 **CI di lint/validazione** nella GitHub Action (ESLint + check JSON/manifest prima della release).
-- [ ] 🟢 **README in inglese** + screenshot/gif per la community Foundry.
+- [x] 🔴 **LICENSE** — MIT sul **codice** + nota che separa il lavoro dai contenuti protetti di *Ten Candles*. Presente in `LICENSE`.
+- [x] 🟡 **Verifica su v14** — `compatibility.verified` portato a "14".
+- [x] 🟡 **CHANGELOG.md** e note di release per ogni versione — mantenuto a ogni versione.
+- [x] 🟢 **CI di lint/validazione** — workflow `lint.yml` (node --check, validazione JSON, ESLint) + `eslint.config.js` e `package.json`.
+- [~] 🟢 **README/manuale in inglese** — README + `MANUAL.en.md` presenti; mancano screenshot/gif.

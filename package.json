@@ -1,0 +1,13 @@
+{
+  "name": "ten-candles",
+  "private": true,
+  "version": "0.3.6",
+  "description": "Unofficial Ten Candles game system for Foundry VTT",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint module"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.0"
+  }
+}

@@ -1,5 +1,65 @@
 # Changelog
 
+## v0.3.8 — Rifiniture: planchette viva, audio, note rich text
+
+- **Planchette su narrazione**: quando il GM scrive in chat (non tiri/whisper/annunci di sistema) lo **spirito si ravviva** con un bagliore sulla plancia.
+- **Suono planchette** (opzionale, default off): un lieve scivolamento procedurale quando la planchette si muove.
+- **Audio ambientale** (opzionale, default off): un leggero **crackle** di candele mentre la plancia è aperta.
+- **Note in ProseMirror**: le note della scheda ora usano un editor rich text al posto della textarea.
+
+## v0.3.7 — Candele con identità, ordine turni, provviste
+
+- **Identità delle candele**: lo stato passa da conteggio ad **array** di accese/spente. Sulla plancia il **GM clicca la candela precisa** da spegnere; l'animazione di spegnimento parte sulla candela giusta. Il pulsante "Spegni" resta come scorciatoia (spegne una accesa).
+- **Ordine dei turni**: il GM può **assegnare il turno** a un personaggio (indicatore "Turno: …" per tutti) durante Verità e creazione.
+- **Supplies / equipment**: nuovo tipo di item **supply** con **quantità e consumo**; sezione nella scheda del personaggio (aggiungi, +1, usa una, rimuovi) e scheda item dedicata. Aggiunto `documentTypes` al manifest.
+
+## v0.3.6 — Planchette parlante, preset dadi, v14, CI
+
+- **Planchette manuale (GM)**: dal tracker il master può far **comporre una parola** alla planchette, che indica le lettere in sequenza (scivolando da una all'altra). API: `game.system.api.spellWord("…")` e `pointPlanchette("A")`; "Auto" torna al comportamento automatico.
+- **Preset Dice So Nice** a tema cera/ambra (registrato solo se il modulo è presente).
+- **Compatibilità v14**: `compatibility.verified` portato a "14".
+- **CI**: workflow di **lint/validazione** (node --check, JSON, ESLint) con `eslint.config.js` e `package.json`.
+
+## v0.3.5 — Segretezza del Brink + "Them" persistente
+
+- **Segretezza del Brink**: sulla scheda il valore del Brink è **mascherato** a chi non è proprietario né GM (lo vedono solo tu e il GM).
+- **"Them" come entità**: una volta definito, l'antagonista compare in un **pannello persistente** nel tracker con il suo Brink, come minaccia condivisa del tavolo.
+
+## v0.3.4 — Martyrdom + animazione di spegnimento
+
+- **Martyrdom**: sulla scheda di un personaggio **morto** compare un controllo per **donare un Hope die** a un sopravvissuto a scelta (annuncio in chat). La scrittura passa dal canale GM-autoritativo.
+- **Animazione di spegnimento**: quando una candela si spegne, sulla plancia la **fiamma sfuma** e parte uno **sbuffo di fumo**. Rispetta l'impostazione animazioni e prefers-reduced-motion.
+
+## v0.3.3 — Impostazioni di sistema + scaffold migrazioni
+
+- Nuove **impostazioni** (Configure Settings): **animazioni della plancia** on/off (per utente); **effetto mangianastri** on/off e **intensità** regolabile (0.3–1.6, per il mondo).
+- **Migrazioni schema**: hook in `ready` che confronta `schemaVersion` e prepara il terreno per migrazioni future (nessuna trasformazione necessaria alla v1).
+
+## v0.3.2 — Creazione: candele progressive + passo Moment
+
+- Durante la **creazione collaborativa** le candele si accendono **progressivamente**: 3 (Traits) + 3 (Moments) + 3 (Brinks) + 1 (fine) → 10. Si vedono accendersi sulla plancia man mano che il GM avanza i passi.
+- Aggiunto il passo **Moment** al flusso (ognuno scrive il **proprio** Momento): ora Virtù → Vizio → Moment → Brink → Them → fine.
+- A fine creazione lo stato è pronto al gioco (10 candele, pool 10/0, scena 1). Localizzazione EN/IT.
+
+## v0.3.1 — Creazione: passo "Them" (Brink GM + antagonista)
+
+- Nuovo passo **"Them"** nel flusso di creazione: il GM scrive il **Brink dell'antagonista "Them"** (annunciato in chat a fine creazione) e un **Brink per un personaggio a scelta** ("They have seen you…").
+- Ordine dei passi ora: Virtù → Vizio → Brink → **Them** → fine.
+- Localizzazione EN/IT.
+- *Da rifinire* (TODO): assegnazione automatica sinistra/destra del GM e scrittura del Brink di Them dal giocatore designato; accensione progressiva delle candele.
+
+## v0.3.0 — Creazione collaborativa (primo milestone)
+
+- **Flusso di creazione guidato** nel tracker: il GM avvia la creazione; a passi (Virtù → Vizio → Brink) ogni giocatore scrive il campo per il **vicino** — **Virtù al vicino di destra**, **Vizio e Brink al vicino di sinistra** — e la scrittura arriva sul personaggio bersaglio via il canale GM-autoritativo.
+- Il GM vede una **checklist** di chi ha già scritto e comanda avanzamento/termine dei passi.
+- Localizzazione EN/IT.
+- **Ancora da fare** (nel TODO): Brink del GM + antagonista "Them", accensione progressiva delle candele, passaggio a "carte" con ordine dei turni.
+
+## v0.2.11 — Registrazioni con effetto "mangianastri"
+
+- Le registrazioni finali vengono riprodotte con un **effetto lo-fi in tempo reale** (Web Audio): banda ridotta, boost dei medi "scatolato", saturazione, **wow/flutter** e **fruscio del nastro**. Si carica un file pulito (mp3/ogg/wav); la distorsione la fa Foundry.
+- Riproduzione **trasmessa via socket** ed elaborata localmente da ogni client (audio uguale per tutti), con **fallback** a riproduzione semplice se la Web Audio non è disponibile.
+
 ## v0.2.10 — Recording: sezione sempre visibile
 
 - La **registrazione finale** ora è **sempre visibile** sulla scheda (non più solo in modifica): campo + pulsante FilePicker per l'owner, pulsante di ascolto per il GM.
