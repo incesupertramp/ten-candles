@@ -1,0 +1,46 @@
+<div class="tc-safety-wrap">
+
+  {{!-- X-Card: sempre disponibile a tutti --}}
+  <section class="tc-safety-sec tc-xcard">
+    <button type="button" class="tc-xcard-btn" data-action="raiseXCard">✕ {{localize "TENCANDLES.Safety.XCard"}}</button>
+    <p class="tc-safety-hint">{{localize "TENCANDLES.Safety.XCardHint"}}</p>
+  </section>
+
+  {{!-- Module / scenario --}}
+  <section class="tc-safety-sec">
+    <div class="tc-safety-head">{{localize "TENCANDLES.Safety.Module"}}</div>
+    {{#if isGM}}
+      <textarea class="tc-module-input" rows="4" placeholder="{{localize "TENCANDLES.Safety.ModulePlaceholder"}}">{{moduleText}}</textarea>
+      <button type="button" class="tc-safety-save" data-action="saveModule">{{localize "TENCANDLES.Safety.Save"}}</button>
+    {{else}}
+      <div class="tc-safety-text">{{#if moduleText}}{{moduleText}}{{else}}—{{/if}}</div>
+    {{/if}}
+  </section>
+
+  {{!-- Lines & Veils --}}
+  <section class="tc-safety-sec">
+    <div class="tc-safety-head">{{localize "TENCANDLES.Safety.LinesVeils"}}</div>
+    {{#if isGM}}
+      <textarea class="tc-lv-input" rows="3" placeholder="{{localize "TENCANDLES.Safety.LinesVeilsPlaceholder"}}">{{linesVeils}}</textarea>
+      <button type="button" class="tc-safety-save" data-action="saveLinesVeils">{{localize "TENCANDLES.Safety.Save"}}</button>
+    {{else}}
+      <div class="tc-safety-text">{{#if linesVeils}}{{linesVeils}}{{else}}—{{/if}}</div>
+    {{/if}}
+  </section>
+
+  {{!-- Libro delle Verità --}}
+  <section class="tc-safety-sec">
+    <div class="tc-safety-head">{{localize "TENCANDLES.Safety.BookOfTruths"}}</div>
+    {{#if truthsLog.length}}
+      {{#each truthsLog}}
+        <div class="tc-truthlog-scene">{{localize "TENCANDLES.Tracker.Scene"}} {{this.scene}}</div>
+        <ul class="tc-truthlog-list">
+          {{#each this.items}}<li>{{this}}</li>{{/each}}
+        </ul>
+      {{/each}}
+    {{else}}
+      <div class="tc-safety-text">—</div>
+    {{/if}}
+  </section>
+
+</div>

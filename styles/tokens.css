@@ -1,0 +1,105 @@
+/* Ten Candles — FASE 2 · Design token.
+ *
+ * "Vibes da tavolo con candele vere": luce calda, alone morbido, fiamme che
+ * tremolano in modo IRREGOLARE. La palette è volutamente scura e FISSA: non si
+ * adatta al tema chiaro di Foundry, perché l'immersione richiede il buio.
+ *
+ * Tutto ciò che segue sono PRIMITIVE riusabili (colori, tipografia, glow,
+ * animazioni). I componenti successivi (scheda, plancia, card) consumano
+ * questi token — nessun valore hard-coded sparso nel CSS.
+ */
+
+:root {
+  /* --- Fondi (il buio della stanza) --- */
+  --tc-night-0: #0d0a07;   /* il buio oltre le candele */
+  --tc-night-1: #120d0a;   /* fondo principale */
+  --tc-night-2: #17120d;   /* superficie sollevata */
+  --tc-panel:   #211a13;   /* carte, celle */
+  --tc-panel-2: #271f16;   /* carta attiva/hover */
+  --tc-line:      #3a2f22; /* bordi */
+  --tc-line-soft: #2c241b; /* bordi tenui */
+
+  /* --- Luce viva (candela accesa, hope, virtue) --- */
+  --tc-amber:        #e8a54b;
+  --tc-amber-bright: #f6d38a;
+  --tc-flame-core:   #fdeecb; /* cuore caldo della fiamma */
+  --tc-ember:        #cf7a2b;
+
+  /* --- Cenere (spento / bruciato) --- */
+  --tc-ash:      #4a4034;
+  --tc-ash-dark: #2c241b;
+  --tc-char:     #201a14; /* fondo di una carta bruciata */
+
+  /* --- Sangue (Dire, Last Stand, spegnere una candela) --- */
+  --tc-blood:      #b03a2e;
+  --tc-blood-dark: #7a3325;
+
+  /* --- Testo --- */
+  --tc-bone:  #e7dcc7; /* primario */
+  --tc-parch: #b7a888; /* secondario */
+  --tc-muted: #9c8b72; /* etichette rituali */
+  --tc-faint: #6f6152; /* locked / disabilitato */
+
+  /* --- Tipografia (serif = tono rituale/da tavolo) --- */
+  --tc-font-ritual: 'Iowan Old Style', 'Palatino Linotype', Georgia, 'Times New Roman', serif;
+  --tc-font-body:   'Iowan Old Style', Georgia, serif;
+  --tc-letter-ritual: 0.14em; /* spaziatura per etichette/frasi rituali */
+
+  /* --- Forma --- */
+  --tc-radius:    10px;
+  --tc-radius-lg: 16px;
+
+  /* --- Luce & profondità (la candela come sorgente) --- */
+  --tc-glow-amber:        0 0 18px 2px rgba(232, 165, 75, 0.35);
+  --tc-glow-amber-strong: 0 0 30px 5px rgba(232, 165, 75, 0.50);
+  --tc-glow-blood:        0 0 18px 2px rgba(176, 58, 46, 0.35);
+  --tc-shadow-card:       0 2px 10px rgba(0, 0, 0, 0.55);
+  --tc-shadow-deep:       0 8px 28px rgba(0, 0, 0, 0.65);
+
+  /* --- Motion --- */
+  --tc-flicker-dur: 3.2s;
+  --tc-ember-dur:   4.2s;
+}
+
+/* -------------------------------------------- */
+/*  Primitive di fiamma (candela vera)          */
+/*  Flicker IRREGOLARE: passi a intervalli      */
+/*  dispari per un tremolio organico, non a tempo.*/
+/* -------------------------------------------- */
+@keyframes tc-flicker {
+  0%,   100% { opacity: 1;    transform: scale(1); }
+  8%        { opacity: 0.92; transform: scale(0.985); }
+  15%       { opacity: 1;    transform: scale(1.012); }
+  26%       { opacity: 0.87; transform: scale(0.99); }
+  34%       { opacity: 0.98; transform: scale(1.004); }
+  45%       { opacity: 1;    transform: scale(1.01); }
+  58%       { opacity: 0.9;  transform: scale(0.992); }
+  67%       { opacity: 1;    transform: scale(1.002); }
+  78%       { opacity: 0.94; transform: scale(0.996); }
+  88%       { opacity: 1;    transform: scale(1.008); }
+}
+
+/* Pulsazione lenta dell'alone (la luce che "respira"). */
+@keyframes tc-ember {
+  0%, 100% { opacity: 0.9; }
+  40%      { opacity: 0.62; }
+  70%      { opacity: 1; }
+}
+
+/* Utility: applicabili alla fiamma e all'alone di una candela.
+   Lo SFASAMENTO tra candele (animation-delay) lo imposta il componente plancia,
+   così non tremolano tutte in sincrono — chiave per il realismo. */
+.tc-flame {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tc-flicker var(--tc-flicker-dur) ease-in-out infinite;
+}
+.tc-halo {
+  animation: tc-ember var(--tc-ember-dur) ease-in-out infinite;
+}
+
+/* Accessibilità: chi preferisce meno movimento vede candele ferme. */
+@media (prefers-reduced-motion: reduce) {
+  .tc-flame,
+  .tc-halo { animation: none; }
+}

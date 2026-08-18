@@ -1,0 +1,651 @@
+/* Ten Candles — FASE 2 · Stili componenti (consumano styles/tokens.css).
+ * Questa sezione: CHARACTER SHEET (Comp. 2).
+ * Le sezioni Tracker e Conflict card restano quelle di Fase 1 finché non
+ * vengono rifinite nei componenti successivi. */
+
+/* --- Finestra della sheet: il buio caldo della stanza --- */
+.ten-candles .window-content {
+  background: var(--tc-night-1);
+  color: var(--tc-bone);
+  font-family: var(--tc-font-body);
+}
+.ten-candles .window-header {
+  background: var(--tc-night-2);
+  border-bottom: 1px solid var(--tc-line);
+}
+.ten-candles .window-header .window-title { color: var(--tc-parch); }
+
+/* --- Struttura --- */
+.ten-candles .tc-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--tc-night-1);
+}
+
+/* Ogni sezione è una "carta" appoggiata sul tavolo. */
+.ten-candles .tc-sheet section {
+  background: var(--tc-panel);
+  border: 1px solid var(--tc-line);
+  border-radius: var(--tc-radius);
+  padding: 12px 14px;
+  box-shadow: var(--tc-shadow-card);
+}
+
+/* Titoletti = etichette rituali. */
+.ten-candles .tc-sheet h3,
+.ten-candles .tc-lbl {
+  margin: 0 0 8px;
+  font-family: var(--tc-font-ritual);
+  font-size: 12px;
+  letter-spacing: var(--tc-letter-ritual);
+  color: var(--tc-muted);
+  font-weight: normal;
+}
+
+/* --- Campi di input: pozzi scuri con bagliore in focus --- */
+.ten-candles .tc-sheet input[type="text"],
+.ten-candles .tc-sheet textarea {
+  background: var(--tc-night-2);
+  border: 1px solid var(--tc-line);
+  border-radius: 8px;
+  color: var(--tc-bone);
+  font-family: var(--tc-font-body);
+  padding: 6px 9px;
+}
+.ten-candles .tc-sheet input[type="text"]:focus,
+.ten-candles .tc-sheet textarea:focus {
+  outline: none;
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.ten-candles .tc-sheet textarea { width: 100%; resize: vertical; }
+
+/* --- Header: nome grande + candela "viva" (alive) --- */
+.ten-candles .tc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+.ten-candles .tc-header input[type="text"] {
+  flex: 1;
+  font-family: var(--tc-font-ritual);
+  font-size: 22px;
+  color: var(--tc-bone);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--tc-line);
+  border-radius: 0;
+}
+.ten-candles .tc-alive {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--tc-muted);
+}
+.ten-candles .tc-alive input[type="checkbox"] { accent-color: var(--tc-amber); }
+
+/* --- Traits: due carte affiancate, una può incarbonirsi --- */
+.ten-candles .tc-trait {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tc-panel-2);
+  border: 1px solid var(--tc-line);
+  border-left: 3px solid var(--tc-amber);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+}
+.ten-candles .tc-trait label {
+  width: 58px;
+  font-family: var(--tc-font-ritual);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--tc-amber);
+}
+.ten-candles .tc-trait input[type="text"] { flex: 1; }
+
+/* Stato BRUCIATO: cenere, carbone, testo barrato color sangue. */
+.ten-candles .burned {
+  background: var(--tc-char);
+  border-color: var(--tc-line-soft);
+  border-left-color: var(--tc-ash);
+  background-image: repeating-linear-gradient(115deg,
+    rgba(0, 0, 0, 0.35) 0 3px, transparent 3px 9px);
+}
+.ten-candles .burned label { color: var(--tc-faint); }
+.ten-candles .burned input[type="text"] {
+  color: var(--tc-ash);
+  text-decoration: line-through;
+  text-decoration-color: var(--tc-blood-dark);
+  background: transparent;
+  border-color: transparent;
+}
+
+/* --- Moment: quando vissuto, si spegne in ambra tenue --- */
+.ten-candles .tc-moment.lived input[type="text"] { color: var(--tc-parch); font-style: italic; }
+
+/* --- Tag di stato (Moment lived / Brink) --- */
+.ten-candles .tc-tag {
+  font-family: var(--tc-font-ritual);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 2px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--tc-line);
+  color: var(--tc-muted);
+}
+.ten-candles .tc-tag.is-locked { color: var(--tc-faint); border-color: var(--tc-line-soft); }
+.ten-candles .tc-tag.is-available {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.ten-candles .tc-tag.is-burned { color: var(--tc-ash); border-color: var(--tc-ash-dark); }
+
+/* --- Hope die: piccolo dado ambrato che brilla --- */
+.ten-candles .tc-hope { display: flex; align-items: center; gap: 12px; }
+.ten-candles .tc-hope h3 { margin: 0; }
+.ten-candles .tc-hope-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 6px;
+  font-family: var(--tc-font-ritual);
+  font-size: 18px;
+  color: var(--tc-flame-core);
+  background: var(--tc-night-2);
+  border: 1px solid var(--tc-amber);
+  border-radius: 7px;
+  box-shadow: var(--tc-glow-amber);
+}
+
+/* --- Bottoni: legno bruciato, si scaldano al passaggio --- */
+.ten-candles .tc-sheet button {
+  background: var(--tc-night-2);
+  color: var(--tc-parch);
+  border: 1px solid var(--tc-line);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-family: var(--tc-font-body);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+.ten-candles .tc-sheet button:hover:not(:disabled) {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.ten-candles .tc-sheet button:disabled { opacity: 0.4; cursor: default; }
+
+/* Conflict = ambra; Dire = sangue. */
+.ten-candles .tc-sheet button[data-dire="false"] { color: var(--tc-amber-bright); border-color: var(--tc-ember); }
+.ten-candles .tc-sheet button[data-dire="true"] { color: #e2a99a; border-color: var(--tc-blood-dark); }
+.ten-candles .tc-sheet button[data-dire="true"]:hover:not(:disabled) {
+  color: #f0c4b8;
+  border-color: var(--tc-blood);
+  box-shadow: var(--tc-glow-blood);
+}
+
+.ten-candles .tc-buttons { display: flex; gap: 8px; margin-top: 6px; }
+
+/* ============================================================= */
+/* --- Candle Tracker · versione mignon della board (Comp. 4) --- */
+.ten-candles.tc-tracker .tc-tracker-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  align-items: center;
+  font-family: var(--tc-font-body);
+  color: var(--tc-bone);
+}
+.ten-candles .tc-candles { display: flex; gap: 5px; }
+.ten-candles .tc-candle { width: 15px; height: 15px; border-radius: 50%; }
+.ten-candles .tc-candle.lit { background: var(--tc-amber); box-shadow: var(--tc-glow-amber); }
+.ten-candles .tc-candle.dark { background: transparent; border: 1px solid var(--tc-ash); }
+.ten-candles .tc-count { font-family: var(--tc-font-ritual); font-size: 18px; color: var(--tc-amber-bright); }
+.ten-candles .tc-state { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ten-candles .tc-state td { border: 1px solid var(--tc-line); padding: 4px 8px; color: var(--tc-parch); }
+.ten-candles .tc-state td:first-child { color: var(--tc-muted); }
+.ten-candles .tc-state td:last-child { text-align: right; width: 44px; color: var(--tc-bone); }
+.ten-candles .tc-open-board,
+.ten-candles .tc-controls button {
+  background: var(--tc-night-2);
+  color: var(--tc-parch);
+  border: 1px solid var(--tc-line);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-family: var(--tc-font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.ten-candles .tc-open-board { width: 100%; }
+.ten-candles .tc-open-board:hover,
+.ten-candles .tc-controls button:hover:not(:disabled) {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.ten-candles .tc-controls { display: flex; gap: 8px; width: 100%; }
+.ten-candles .tc-controls button { flex: 1; }
+.ten-candles .tc-controls button:disabled { opacity: 0.4; cursor: default; }
+.ten-candles .tc-phase { font-family: var(--tc-font-ritual); letter-spacing: 0.12em; font-size: 12px; }
+.ten-candles .tc-laststand { color: var(--tc-blood); }
+.ten-candles .tc-gameover { color: var(--tc-ash); }
+
+/* --- Conflict card · palette candlelight (Comp. 5) --- */
+.tc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-family: var(--tc-font-body);
+  color: var(--tc-bone);
+  background: var(--tc-night-2);
+  border: 1px solid var(--tc-line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: var(--tc-shadow-card);
+}
+.tc-card-head { display: flex; align-items: center; gap: 8px; }
+.tc-card-head strong {
+  font-family: var(--tc-font-ritual);
+  font-weight: normal;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--tc-bone);
+}
+.tc-card-actor { color: var(--tc-muted); font-size: 13px; }
+.tc-card .tc-tag {
+  font-family: var(--tc-font-ritual);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 1px 8px;
+  border: 1px solid var(--tc-line);
+  border-radius: 20px;
+  color: var(--tc-muted);
+}
+.tc-card .tc-tag.tc-laststand { color: var(--tc-blood); border-color: var(--tc-blood-dark); }
+
+.tc-dice-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.tc-dice-label { width: 54px; font-size: 11px; letter-spacing: 0.08em; color: var(--tc-muted); }
+.tc-die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 4px;
+  font-family: var(--tc-font-ritual);
+  font-size: 14px;
+  color: var(--tc-parch);
+  background: var(--tc-night-1);
+  border: 1px solid var(--tc-line);
+  border-radius: 5px;
+}
+/* 6 = scintilla di luce; 1 = dado spento (perso). */
+.tc-die.six { background: var(--tc-amber); color: #2a1c08; border-color: var(--tc-ember); box-shadow: var(--tc-glow-amber); }
+.tc-die.one { background: var(--tc-blood-dark); color: #f0d8d2; border-color: var(--tc-blood); }
+.tc-die.hope { border-style: dashed; border-color: var(--tc-ember); }
+.tc-die.gm { color: #cf9a7f; }
+.tc-die.empty { color: var(--tc-faint); border-style: dashed; }
+
+.tc-card-result { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; margin-top: 3px; }
+.tc-outcome { font-family: var(--tc-font-ritual); font-size: 15px; }
+.tc-outcome.ok { color: var(--tc-amber-bright); }
+.tc-outcome.fail { color: var(--tc-blood); }
+.tc-narration, .tc-ones { color: var(--tc-muted); font-size: 12px; }
+.tc-card-note, .tc-card-final { font-style: italic; color: var(--tc-parch); }
+
+.tc-card-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.tc-card-buttons button {
+  flex: 1 1 auto;
+  background: var(--tc-night-1);
+  color: var(--tc-parch);
+  border: 1px solid var(--tc-line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: var(--tc-font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.tc-card-buttons button:hover { color: var(--tc-amber-bright); border-color: var(--tc-ember); box-shadow: var(--tc-glow-amber); }
+.tc-card-buttons button[data-tc-btn="apply"] { color: var(--tc-amber-bright); border-color: var(--tc-ember); }
+.tc-card-buttons button[data-tc-btn="embraceBrink"] { color: #e2a99a; border-color: var(--tc-blood-dark); }
+.tc-card-buttons button[data-tc-btn="embraceBrink"]:hover { color: #f0c4b8; border-color: var(--tc-blood); box-shadow: var(--tc-glow-blood); }
+
+/* ============================================================= */
+/* --- Board a tutto schermo (ripristinata, z-index alto) --- */
+.ten-candles.tc-board {
+  /* Posizione e dimensione sono impostate via JS (#position) per coprire solo
+     l'area del canvas, lasciando visibile la UI di Foundry. Qui solo l'aspetto. */
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #17120d 0%, #0d0a07 72%);
+}
+.tc-confirm-text { color: var(--tc-parch); font-size: 13px; align-self: center; }
+.tc-board-wrap { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.tc-board-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+}
+.tc-board-title {
+  font-family: var(--tc-font-ritual);
+  letter-spacing: var(--tc-letter-ritual);
+  color: var(--tc-muted);
+  font-size: 14px;
+}
+.tc-board-close {
+  background: none;
+  border: 1px solid var(--tc-line);
+  color: var(--tc-parch);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.tc-board-close:hover {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.tc-board-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 4px 0 8px;
+}
+.tc-board-svg { width: 100%; height: 100%; display: block; }
+
+/* Board · interazione e stati */
+.tc-clickable { cursor: pointer; }
+.tc-clickable:hover .tc-halo { opacity: 0.22; }
+.tc-clickable:hover .tc-flame circle:first-child { fill: #fbe3ad; }
+.tc-board-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 0 104px; /* sollevati sopra la hotbar di Foundry */
+}
+.tc-board-controls button {
+  background: var(--tc-night-2);
+  color: var(--tc-parch);
+  border: 1px solid var(--tc-line);
+  border-radius: 9px;
+  padding: 9px 16px;
+  font-family: var(--tc-font-body);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.tc-board-controls button:hover:not(:disabled) {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+.tc-board-controls button:disabled { opacity: 0.4; cursor: default; }
+.tc-ls-tag { color: var(--tc-blood); }
+.is-laststand .tc-medallion { stroke: var(--tc-blood); }
+.is-laststand .tc-medallion-num { fill: #e2857a; }
+.is-laststand .tc-ring { stroke: var(--tc-blood-dark); opacity: 0.8; }
+.is-over .tc-candle-node { opacity: 0.55; }
+.is-over .tc-medallion { stroke: var(--tc-ash); }
+
+/* Pulsante ✕ galleggiante della board (sempre sopra la UI). */
+.tc-board-float-close {
+  position: fixed;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100000;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tc-night-2);
+  color: var(--tc-parch);
+  border: 1px solid var(--tc-line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.tc-board-float-close:hover {
+  color: var(--tc-amber-bright);
+  border-color: var(--tc-ember);
+  box-shadow: var(--tc-glow-amber);
+}
+
+/* Board scena: conteggio centrale in Last Stand vira al sangue. */
+.is-laststand .tc-center-count { fill: #e2857a; }
+
+/* Conflict card — bottone morte volontaria e tag Moment. */
+.tc-btn-death { border-color: var(--tc-blood-dark) !important; color: #e2857a !important; }
+.tc-btn-death:hover { border-color: var(--tc-blood) !important; box-shadow: 0 0 10px rgba(140,30,30,.4) !important; }
+.tc-moment-tag { font-size: 11px; color: var(--tc-amber-bright); border: 1px solid var(--tc-line); border-radius: 6px; padding: 1px 6px; margin-left: 6px; }
+
+/* ============================================================= */
+/* Character sheet ridisegnata (candlelit)                       */
+/* ============================================================= */
+.tc-sheet { padding: 14px; color: var(--tc-parch); font-family: var(--tc-font-body); background: var(--tc-night-1); }
+.tc-sheet.is-dead { opacity: 0.62; }
+.tc-sheet .tcs-lbl { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--tc-muted); }
+
+.tcs-header { display: flex; align-items: flex-start; justify-content: space-between;
+  border-bottom: 1px solid var(--tc-line); padding-bottom: 12px; margin-bottom: 14px; }
+.tcs-name { font-family: var(--tc-font-ritual); font-size: 22px; color: var(--tc-amber-bright); }
+.tcs-concept { font-size: 13px; color: var(--tc-muted); font-style: italic; }
+.tcs-name-input { font-family: var(--tc-font-ritual); font-size: 18px; margin-bottom: 4px; }
+.tcs-head-actions { display: flex; gap: 8px; align-items: center; }
+.tcs-flame { background: none; border: 1px solid var(--tc-line); color: var(--tc-amber);
+  border-radius: 50%; width: 36px; height: 36px; cursor: pointer; transition: all .2s; }
+.tcs-flame:hover { color: var(--tc-amber-bright); border-color: var(--tc-ember); box-shadow: var(--tc-glow-amber); }
+.tcs-flame.out { color: #5a4a38; }
+.tcs-edit { background: var(--tc-night-2); border: 1px solid var(--tc-line); color: var(--tc-parch);
+  border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all .2s; }
+.tcs-edit:hover { border-color: var(--tc-ember); color: var(--tc-amber-bright); }
+
+.tcs-traits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.tcs-trait { background: var(--tc-panel); border: 1px solid var(--tc-line); border-radius: 10px; padding: 10px 12px; transition: all .25s; }
+.tcs-trait.burned { background: #140f0a; border-color: #5a2a1a; color: #7a6a58; }
+.tcs-trait .tcs-val { font-size: 15px; margin: 4px 0 8px; min-height: 20px; }
+.tcs-trait.burned .tcs-val { text-decoration: line-through; color: #6a5a48; }
+
+.tcs-band { background: var(--tc-panel); border: 1px solid var(--tc-line); border-radius: 10px; padding: 11px 13px; margin-bottom: 12px; transition: all .3s; }
+.tcs-band-head { display: flex; align-items: center; justify-content: space-between; }
+.tcs-txt { font-size: 15px; margin: 5px 0 8px; }
+.tcs-band-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.tcs-moment.lived .tcs-txt { text-decoration: line-through; color: var(--tc-muted); }
+.tcs-brink { background: #140f0a; border-color: #2a2118; }
+.tcs-brink.avail { border-color: var(--tc-ember); background: #1d1408; box-shadow: 0 0 14px rgba(207,120,42,.28); }
+.tcs-brink.avail .tcs-txt { color: var(--tc-amber-bright); }
+.tcs-brink.burned { opacity: .7; }
+
+.tcs-tag { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--tc-ember);
+  border: 1px solid #5a3a20; border-radius: 5px; padding: 2px 6px; }
+.tcs-tag.is-available { color: var(--tc-amber-bright); }
+.tcs-tag.is-burned { color: var(--tc-blood); border-color: var(--tc-blood-dark); }
+
+.tcs-mini { background: none; border: 1px solid var(--tc-line); color: var(--tc-amber);
+  border-radius: 7px; padding: 5px 10px; font-size: 12px; cursor: pointer; transition: all .2s; }
+.tcs-mini:hover:not(:disabled) { border-color: var(--tc-ember); color: var(--tc-amber-bright); }
+.tcs-mini:disabled { opacity: .4; cursor: default; }
+
+.tcs-inline { width: 100%; }
+
+.tcs-hope { display: flex; align-items: center; gap: 8px; background: var(--tc-panel);
+  border: 1px solid var(--tc-line); border-radius: 10px; padding: 11px 13px; margin-bottom: 12px; }
+.tcs-pips { display: flex; gap: 6px; }
+.tcs-pip { background: none; border: none; padding: 0; cursor: pointer; font-size: 20px; color: #4a3d2c; transition: all .18s; line-height: 1; }
+.tcs-pip.on { color: var(--tc-amber-bright); text-shadow: 0 0 8px rgba(240,200,119,.6); }
+.tcs-hope-n { margin-left: auto; color: var(--tc-amber-bright); font-size: 15px; font-family: var(--tc-font-ritual); }
+
+.tcs-actions { display: flex; gap: 10px; margin-bottom: 12px; }
+.tcs-btn { flex: 1; background: var(--tc-night-2); border: 1px solid var(--tc-line); color: var(--tc-parch);
+  border-radius: 9px; padding: 10px; font-size: 14px; cursor: pointer; transition: all .2s; }
+.tcs-btn:hover { border-color: var(--tc-ember); color: var(--tc-amber-bright); box-shadow: var(--tc-glow-amber); }
+.tcs-btn.dire { color: #e2857a; border-color: #5a2222; }
+.tcs-btn.dire:hover { border-color: var(--tc-blood); box-shadow: 0 0 10px rgba(140,30,30,.35); }
+
+.tcs-notes textarea { width: 100%; }
+
+/* Board — cerchio rituale (colore; l'intensità/opacità è calcolata via JS). */
+.tc-ritual { stroke: #b5843a; }
+.tc-ritual-dot { fill: #b5843a; }
+.is-laststand .tc-ritual { stroke: #c25b4a; }
+.is-laststand .tc-ritual-dot { fill: #c25b4a; }
+
+/* ===== Board — finezze sceniche ===== */
+/* Fumo leggero dalle candele accese */
+@keyframes tc-smoke-rise { 0% { opacity: 0; transform: translateY(0) scaleX(.8); } 30% { opacity: .18; } 100% { opacity: 0; transform: translateY(-14px) scaleX(1.3); } }
+.tc-smoke-lit { transform-box: fill-box; transform-origin: bottom center; opacity: 0; animation: tc-smoke-rise 5.5s ease-in-out infinite; }
+/* Pulviscolo nel fascio del riflettore */
+@keyframes tc-dust-float { 0% { opacity: 0; transform: translateY(4px); } 50% { opacity: .5; } 100% { opacity: 0; transform: translateY(-16px); } }
+.tc-dust circle { fill: #f0d9a0; opacity: 0; animation: tc-dust-float 7s ease-in-out infinite; }
+/* Respiro del riflettore */
+@keyframes tc-spot-breathe { 0%,100% { opacity: .85; } 50% { opacity: 1; } }
+.tc-spot { animation: tc-spot-breathe 6s ease-in-out infinite; }
+/* Pozza di luce individuale: leggerissima pulsazione col flicker */
+.tc-pool { transform-box: fill-box; transform-origin: center; }
+
+/* Reattività al Last Stand */
+.tc-ls-wash { opacity: 0; transition: opacity 1.2s ease; pointer-events: none; }
+.is-laststand .tc-ls-wash { opacity: .16; }
+.is-laststand .tc-footlights { opacity: .45; transition: opacity 1.2s ease; }
+.is-laststand .tc-spot { opacity: .6; }
+.is-over .tc-footlights { opacity: .2; }
+.is-over .tc-dust { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-smoke-lit, .tc-dust circle, .tc-spot { animation: none; }
+  .tc-smoke-lit { opacity: .12; }
+  .tc-dust circle { opacity: .3; }
+}
+
+/* Board — planchette dello spirito (GM). Alone ambra come i vivi, con lieve pulsare. */
+@keyframes tc-spirit-pulse { 0%,100% { opacity:.55 } 50% { opacity:.9 } }
+.tc-spirit-glow { animation: tc-spirit-pulse 4.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ .tc-spirit-glow{ animation:none; opacity:.7 } }
+
+/* ===== Tracker — pannello Verità (Establishing Truths) ===== */
+.tc-truths-panel { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--tc-line); border-radius: 8px; background: var(--tc-panel); }
+.tc-truths-head { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--tc-amber); }
+.tc-truths-open { font-family: var(--tc-font-ritual); font-style: italic; color: var(--tc-muted); font-size: 12px; margin: 4px 0 6px; }
+.tc-truths-list { list-style: none; margin: 0 0 6px; padding: 0; }
+.tc-truths-list li { font-size: 12px; color: var(--tc-parch); padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+.tc-truth-who { color: var(--tc-amber-bright); font-size: 10px; text-transform: uppercase; letter-spacing: .5px; margin-right: 6px; }
+.tc-truth-add { display: flex; gap: 6px; margin-top: 4px; }
+.tc-truth-add input { flex: 1; min-width: 0; }
+.tc-truth-add button { flex: 0 0 auto; }
+.tc-truths-close { margin-top: 6px; width: 100%; font-family: var(--tc-font-ritual); font-style: italic; }
+
+/* ===== Scheda — Final recording ===== */
+.tcs-recording { margin-top: 12px; }
+.tcs-rec-row { display: flex; gap: 6px; align-items: center; }
+.tcs-rec-row input { flex: 1; min-width: 0; }
+.tcs-rec-note { font-size: 10px; color: var(--tc-muted); font-style: italic; margin-top: 4px; }
+.tc-play-recordings { margin-top: 4px; }
+
+/* ===== Tracker — creazione collaborativa ===== */
+.tc-creation-panel { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--tc-ember); border-radius: 8px; background: #1d1408; }
+.tc-creation-ask { font-size: 12px; color: var(--tc-parch); margin: 4px 0 6px; }
+.tc-creation-ask strong { color: var(--tc-amber-bright); }
+.tc-creation-overview { list-style: none; margin: 6px 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.tc-creation-overview li { font-size: 11px; color: var(--tc-muted); }
+.tc-creation-overview li.done { color: var(--tc-amber-bright); }
+.tc-creation-gm { display: flex; gap: 6px; margin-top: 4px; }
+.tc-creation-gm button { flex: 1; }
+.tc-start-creation { width: 100%; margin-top: 4px; }
+
+/* ===== Impostazione: animazioni off ===== */
+.tc-board-wrap.is-noanim .tc-flame,
+.tc-board-wrap.is-noanim .tc-halo,
+.tc-board-wrap.is-noanim .tc-smoke-lit,
+.tc-board-wrap.is-noanim .tc-ritual,
+.tc-board-wrap.is-noanim .tc-spirit-glow { animation: none !important; }
+
+/* ===== Scheda — Martyrdom (morte eroica) ===== */
+.tcs-martyrdom { margin-top: 12px; padding: 8px 10px; border: 1px solid var(--tc-ember); border-radius: 8px; background: #1d1408; }
+.tcs-martyrdom .tcs-rec-row { display: flex; gap: 6px; align-items: center; }
+.tcs-martyrdom select { flex: 1; min-width: 0; }
+
+/* ===== Segretezza Brink + pannello Them ===== */
+.tcs-secret { color: var(--tc-muted); font-style: italic; opacity: .8; }
+.tc-them-panel { margin: 8px 0; padding: 8px 10px; border: 1px solid var(--tc-blood-dark); border-radius: 8px; background: #1a0d0d; }
+.tc-them-current { font-family: var(--tc-font-ritual); font-style: italic; color: var(--tc-parch); font-size: 12px; margin: 4px 0 0; }
+
+/* ===== Tracker — pannello planchette (spell) ===== */
+.tc-planchette-panel { margin: 8px 0 0; padding: 8px 10px; border: 1px solid var(--tc-line); border-radius: 8px; background: var(--tc-panel); }
+.tc-planchette-panel .tc-truth-add { margin-top: 4px; }
+.tc-spell-input { flex: 1; min-width: 0; }
+
+/* ===== Plancia: candela cliccabile (GM) ===== */
+.tc-candle-click { cursor: pointer; }
+.tc-candle-click:hover .tc-flame { filter: brightness(1.3); }
+.tc-candle-click:focus-visible { outline: 1px dashed var(--tc-amber); outline-offset: 2px; }
+
+/* ===== Tracker — barra del turno ===== */
+.tc-turn-bar { margin: 8px 0; }
+.tc-turn { font-size: 12px; color: var(--tc-parch); padding: 4px 0; }
+.tc-turn strong { color: var(--tc-amber-bright); }
+.tc-turn.is-mine { color: var(--tc-amber-bright); font-weight: bold; }
+.tc-turn-target { flex: 1; min-width: 0; }
+
+/* ===== Scheda — Supplies / item supply ===== */
+.tcs-supplies { margin-top: 12px; }
+.tcs-supply-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.tcs-supply-qty { color: var(--tc-amber-bright); font-variant-numeric: tabular-nums; min-width: 28px; }
+.tcs-supply-name { flex: 1; color: var(--tc-parch); }
+.tcs-add-supply { margin-top: 4px; }
+.tc-supply-sheet { padding: 8px; display: flex; flex-direction: column; gap: 8px; }
+.tcs-supply-grid { display: grid; grid-template-columns: auto 1fr auto auto; gap: 6px 10px; align-items: center; }
+
+/* ===== Note: editor ProseMirror ===== */
+.tcs-notes prose-mirror { display: block; min-height: 64px; border: 1px solid var(--tc-line); border-radius: 6px; background: rgba(0,0,0,.15); }
+.tcs-notes prose-mirror .editor-content { padding: 4px 8px; color: var(--tc-parch); }
+
+/* ===== Planchette: idle ritmico (leggero dondolio) ===== */
+@keyframes tc-planch-idle { 0%,100% { transform: rotate(-1.1deg) translateY(0); } 50% { transform: rotate(1.1deg) translateY(-1.2px); } }
+.tc-planchette-idle { transform-box: fill-box; transform-origin: center; animation: tc-planch-idle 4.8s ease-in-out infinite; }
+.tc-board-wrap.is-noanim .tc-planchette-idle { animation: none !important; }
+
+/* ===== Tracker: barra superiore (X-Card + Safety) ===== */
+.tc-toprow { display: flex; gap: 6px; margin-bottom: 6px; }
+.tc-xcard-mini { flex: 1; background: #4a0d0d; color: #f3d9d9; border-color: var(--tc-blood); font-weight: bold; }
+.tc-safety-open { flex: 0 0 auto; }
+
+/* ===== App Safety ===== */
+.tc-safety-wrap { padding: 10px; display: flex; flex-direction: column; gap: 12px; }
+.tc-safety-sec { border: 1px solid var(--tc-line); border-radius: 8px; padding: 8px 10px; background: var(--tc-panel); }
+.tc-safety-head { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--tc-amber); margin-bottom: 6px; }
+.tc-safety-hint { font-size: 11px; color: var(--tc-muted); font-style: italic; margin: 6px 0 0; }
+.tc-safety-text { color: var(--tc-parch); font-size: 13px; white-space: pre-wrap; }
+.tc-safety-save { margin-top: 6px; }
+.tc-xcard-btn { width: 100%; background: #4a0d0d; color: #f3d9d9; border-color: var(--tc-blood); font-weight: bold; font-size: 15px; padding: 8px; }
+.tc-truthlog-scene { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--tc-amber); margin-top: 6px; }
+.tc-truthlog-list { list-style: none; margin: 2px 0; padding: 0; }
+.tc-truthlog-list li { font-size: 12px; color: var(--tc-parch); padding: 1px 0; }
+.tc-xcard-msg { border-left: 3px solid var(--tc-blood); }
+
+/* ===== Ritratti negli slot volto (fallback quando non c'è webcam live) ===== */
+.tc-seat-portrait { filter: sepia(.22) brightness(.92) contrast(1.05) saturate(.95); }

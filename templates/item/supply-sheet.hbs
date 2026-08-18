@@ -1,0 +1,13 @@
+<form class="tc-supply-sheet">
+  <div class="tcs-rec-row">
+    <input type="text" name="name" value="{{item.name}}" placeholder="{{localize "TENCANDLES.Supply.Name"}}" {{#unless editable}}readonly{{/unless}} />
+  </div>
+  <div class="tcs-supply-grid">
+    <label>{{localize "TENCANDLES.Supply.Quantity"}}</label>
+    <input type="number" name="system.quantity" value="{{system.quantity}}" min="0" step="1" {{#unless editable}}readonly{{/unless}} />
+    <label>{{localize "TENCANDLES.Supply.Consumable"}}</label>
+    <input type="checkbox" name="system.consumable" {{#if system.consumable}}checked{{/if}} {{#unless editable}}disabled{{/unless}} />
+  </div>
+  <div class="tcs-lbl">{{localize "TENCANDLES.Field.Notes"}}</div>
+  <textarea name="system.notes" rows="3" {{#unless editable}}readonly{{/unless}}>{{system.notes}}</textarea>
+</form>

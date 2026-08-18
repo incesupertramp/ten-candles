@@ -1,0 +1,155 @@
+{{!--
+  Ten Candles — Candle Tracker (FASE 2 · Comp. 4).
+  Versione compatta della board: pallini-candela, pool, scena, controlli GM.
+--}}
+<div class="tc-tracker-body">
+
+  <div class="tc-toprow">
+    <button type="button" class="tc-xcard-mini" data-action="xcard" title="{{localize "TENCANDLES.Safety.XCardHint"}}">✕ {{localize "TENCANDLES.Safety.XCard"}}</button>
+    <button type="button" class="tc-safety-open" data-action="openSafety" title="{{localize "TENCANDLES.Safety.Title"}}"><i class="fa-solid fa-book-open"></i></button>
+  </div>
+
+  {{#if isLastStand}}
+    <div class="tc-phase tc-laststand">{{localize "TENCANDLES.Phase.LastStand"}}</div>
+  {{else if isGameOver}}
+    <div class="tc-phase tc-gameover">{{localize "TENCANDLES.Tracker.GameOver"}}</div>
+  {{/if}}
+
+  <div class="tc-candles">
+    {{#each candles as |lit|}}
+      <span class="tc-candle {{#if lit}}lit{{else}}dark{{/if}}"></span>
+    {{/each}}
+  </div>
+  <div class="tc-count">{{candlesLit}} / {{candles.length}}</div>
+
+  {{#if creation}}
+    <div class="tc-creation-panel">
+      <div class="tc-truths-head">{{localize "TENCANDLES.Creation.Title"}} · {{creation.stepLabel}}</div>
+      {{#if creation.assignment}}
+        <p class="tc-creation-ask">{{creation.askLabel}} <strong>{{creation.assignment.targetName}}</strong></p>
+        <div class="tc-truth-add">
+          <input type="text" class="tc-creation-input" maxlength="200"
+                 data-actor="{{creation.assignment.targetId}}" data-field="{{creation.assignment.field}}"
+                 value="{{creation.assignment.current}}" placeholder="…" />
+          <button type="button" data-action="creationSubmit" title="{{localize "TENCANDLES.Creation.Save"}}"><i class="fa-solid fa-check"></i></button>
+        </div>
+      {{else}}
+        <p class="tc-creation-ask">{{localize "TENCANDLES.Creation.NoChar"}}</p>
+      {{/if}}
+      {{#if creation.them}}
+        <div class="tc-them">
+          <p class="tc-creation-ask">{{localize "TENCANDLES.Creation.ThemBrinkLabel"}}</p>
+          {{#if creation.them.brink}}<p class="tc-them-current"><em>{{creation.them.brink}}</em></p>{{/if}}
+          {{#if isGM}}
+            <div class="tc-truth-add">
+              <input type="text" class="tc-them-input" maxlength="240" value="{{creation.them.brink}}" placeholder="I have seen Them…" />
+              <button type="button" data-action="creationSetThem" title="{{localize "TENCANDLES.Creation.Save"}}"><i class="fa-solid fa-check"></i></button>
+            </div>
+            <p class="tc-creation-ask">{{localize "TENCANDLES.Creation.GmBrinkLabel"}}</p>
+            <div class="tc-truth-add">
+              <select class="tc-gmbrink-target">
+                {{#each creation.them.chars}}<option value="{{this.id}}">{{this.name}}</option>{{/each}}
+              </select>
+            </div>
+            <div class="tc-truth-add">
+              <input type="text" class="tc-gmbrink-input" maxlength="200" placeholder="They have seen you…" />
+              <button type="button" data-action="creationGmBrink" title="{{localize "TENCANDLES.Creation.Save"}}"><i class="fa-solid fa-check"></i></button>
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if isGM}}
+        <div class="tc-creation-gm">
+          <button type="button" data-action="creationNext">{{localize "TENCANDLES.Creation.Next"}}</button>
+          <button type="button" data-action="endCreation">{{localize "TENCANDLES.Creation.End"}}</button>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if showTurn}}
+    <div class="tc-turn-bar">
+      {{#if turn}}
+        <div class="tc-turn {{#if turn.isMine}}is-mine{{/if}}"><i class="fa-solid fa-hand-point-right"></i> {{localize "TENCANDLES.Turn.Now"}} <strong>{{turn.name}}</strong></div>
+      {{/if}}
+      {{#if isGM}}
+        <div class="tc-truth-add">
+          <select class="tc-turn-target">
+            <option value="">{{localize "TENCANDLES.Turn.None"}}</option>
+            {{#each turnChars}}<option value="{{this.id}}" {{#if this.sel}}selected{{/if}}>{{this.name}}</option>{{/each}}
+          </select>
+          <button type="button" data-action="setTurn" title="{{localize "TENCANDLES.Turn.Set"}}"><i class="fa-solid fa-hand-point-right"></i></button>
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  {{#if themBrink}}{{#unless creation}}
+    <div class="tc-them-panel">
+      <div class="tc-truths-head">{{localize "TENCANDLES.Creation.Them"}}</div>
+      <p class="tc-them-current"><em>{{themBrink}}</em></p>
+    </div>
+  {{/unless}}{{/if}}
+
+  {{#if truthsPhase}}
+    <div class="tc-truths-panel">
+      <div class="tc-truths-head">{{localize "TENCANDLES.Phase.Truths"}} · {{truthsCount}}/{{truthsTarget}}</div>
+      <p class="tc-truths-open">{{localize "TENCANDLES.Ritual.TruthsOpen"}}</p>
+      {{#if truths.length}}
+        <ul class="tc-truths-list">
+          {{#each truths}}<li><span class="tc-truth-who">{{this.name}}</span>{{this.text}}</li>{{/each}}
+        </ul>
+      {{/if}}
+      {{#if canSubmit}}
+        <div class="tc-truth-add">
+          <input type="text" class="tc-truth-input" maxlength="240" placeholder="{{localize "TENCANDLES.Truths.Placeholder"}}" />
+          <button type="button" data-action="submitTruth" title="{{localize "TENCANDLES.Truths.Add"}}"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      {{/if}}
+      {{#if isGM}}
+        <button type="button" class="tc-truths-close" data-action="closeTruths">{{localize "TENCANDLES.Ritual.TruthsClose"}}</button>
+      {{/if}}
+    </div>
+  {{/if}}
+
+  <table class="tc-state">
+    <tr><td>{{localize "TENCANDLES.Tracker.PlayerPool"}}</td><td>{{playerPool}}</td></tr>
+    <tr><td>{{localize "TENCANDLES.Tracker.GmPool"}}</td><td>{{gmPool}}</td></tr>
+    <tr><td>{{localize "TENCANDLES.Tracker.Scene"}}</td><td>{{sceneNumber}}</td></tr>
+  </table>
+
+  <button type="button" class="tc-open-board" data-action="openBoard">
+    {{localize "TENCANDLES.Tracker.OpenBoard"}}
+  </button>
+
+  {{#if isGM}}
+    <div class="tc-controls">
+      <button type="button" data-action="darken" {{#if isGameOver}}disabled{{/if}}>
+        {{localize "TENCANDLES.Tracker.Darken"}}
+      </button>
+      <button type="button" data-action="newGame">
+        {{localize "TENCANDLES.Tracker.NewGame"}}
+      </button>
+      {{#if isGameOver}}
+      <button type="button" class="tc-play-recordings" data-action="playRecordings">
+        <i class="fa-solid fa-play"></i> {{localize "TENCANDLES.Tracker.PlayRecordings"}}
+      </button>
+      {{/if}}
+      {{#unless creation}}
+      <button type="button" class="tc-start-creation" data-action="startCreation">
+        <i class="fa-solid fa-users"></i> {{localize "TENCANDLES.Creation.Start"}}
+      </button>
+      {{/unless}}
+    </div>
+    <div class="tc-planchette-panel">
+      <div class="tc-truths-head">{{localize "TENCANDLES.Planchette.Title"}}</div>
+      <div class="tc-truth-add">
+        <input type="text" class="tc-spell-input" maxlength="40" placeholder="{{localize "TENCANDLES.Planchette.Placeholder"}}" />
+        <button type="button" data-action="spellWord" title="{{localize "TENCANDLES.Planchette.Spell"}}"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+        <button type="button" data-action="planchetteAuto" title="{{localize "TENCANDLES.Planchette.Auto"}}"><i class="fa-solid fa-rotate"></i></button>
+      </div>
+    </div>
+  {{/if}}
+
+</div>

@@ -1,0 +1,77 @@
+{{!--
+  Ten Candles — Conflict card (FASE 1, HTML essenziale).
+  I bottoni usano data-tc-btn; il listener delegato (DiceEngine) li gestisce.
+--}}
+<div class="tc-card">
+
+  <div class="tc-card-head">
+    <strong>{{#if dire}}{{localize "TENCANDLES.Card.Dire"}}{{else}}{{localize "TENCANDLES.Card.Title"}}{{/if}}</strong>{{#if moment}} <span class="tc-moment-tag">{{localize "TENCANDLES.Card.MomentTag"}}</span>{{/if}}
+    <span class="tc-card-actor">{{actorName}}</span>
+    {{#if lastStand}}<span class="tc-tag tc-laststand">{{localize "TENCANDLES.Card.LastStandTag"}}</span>{{/if}}
+  </div>
+
+  {{!-- Dadi giocatore --}}
+  <div class="tc-dice-row">
+    <span class="tc-dice-label">{{localize "TENCANDLES.Card.PlayerDice"}}</span>
+    {{#each normal as |d|}}<span class="tc-die {{#if d.six}}six{{/if}} {{#if d.one}}one{{/if}}">{{d.v}}</span>{{/each}}
+    {{#unless normal.length}}<span class="tc-die empty">—</span>{{/unless}}
+  </div>
+
+  {{!-- Hope dice --}}
+  {{#if hope.length}}
+  <div class="tc-dice-row">
+    <span class="tc-dice-label">{{localize "TENCANDLES.Card.HopeDice"}}</span>
+    {{#each hope as |d|}}<span class="tc-die hope {{#if d.hopeHit}}six{{/if}}">{{d.v}}</span>{{/each}}
+  </div>
+  {{/if}}
+
+  {{!-- Dadi GM --}}
+  {{#if gm.length}}
+  <div class="tc-dice-row">
+    <span class="tc-dice-label">{{localize "TENCANDLES.Card.GmDice"}}</span>
+    {{#each gm as |d|}}<span class="tc-die gm {{#if d.six}}six{{/if}}">{{d.v}}</span>{{/each}}
+  </div>
+  {{/if}}
+
+  {{!-- Riepilogo --}}
+  <div class="tc-card-result">
+    <span class="tc-outcome {{#if success}}ok{{else}}fail{{/if}}">
+      {{#if success}}{{localize "TENCANDLES.Card.Success"}}{{else}}{{localize "TENCANDLES.Card.Failure"}}{{/if}}
+    </span>
+    <span class="tc-narration">
+      {{localize "TENCANDLES.Card.NarrationLabel"}}:
+      {{#if narrationPlayer}}{{localize "TENCANDLES.Card.NarrationPlayer"}}{{else}}{{localize "TENCANDLES.Card.NarrationGm"}}{{/if}}
+      ({{playerSixes}} vs {{gmSixes}})
+    </span>
+    {{#if success}}{{#if ones}}<span class="tc-ones">{{localize "TENCANDLES.Card.OnesLabel"}}: {{ones}}</span>{{/if}}{{/if}}
+  </div>
+
+  {{!-- Note Brink --}}
+  {{#if note}}
+  <div class="tc-card-note">
+    {{#if noteKept}}{{localize "TENCANDLES.Card.BrinkKept"}}{{/if}}
+    {{#if noteFailed}}{{localize "TENCANDLES.Card.BrinkFailed"}}{{/if}}
+  </div>
+  {{/if}}
+
+  {{!-- Esito finale --}}
+  {{#if resolved}}
+  <div class="tc-card-final">
+    {{#if outcomeSuccess}}{{localize "TENCANDLES.Card.OutcomeSuccess"}}{{/if}}
+    {{#if outcomeDarken}}{{localize "TENCANDLES.Card.OutcomeDarken"}}{{/if}}
+    {{#if outcomeDeath}}{{localize "TENCANDLES.Card.OutcomeDeath"}}{{/if}}
+    {{#if outcomeSeize}}{{localize "TENCANDLES.Card.OutcomeSeize"}}{{/if}}
+    {{#if outcomeDeathNarrate}}{{localize "TENCANDLES.Card.OutcomeDeathNarrate"}}{{/if}}
+  </div>
+  {{else}}
+  {{!-- Bottoni azione --}}
+  <div class="tc-card-buttons">
+    {{#if showBurnTrait}}<button type="button" data-tc-btn="burnTrait">{{localize "TENCANDLES.Card.BurnTrait"}}</button>{{/if}}
+    {{#if showEmbraceBrink}}<button type="button" data-tc-btn="embraceBrink">{{localize "TENCANDLES.Card.EmbraceBrink"}}</button>{{/if}}
+    {{#if showSeize}}<button type="button" data-tc-btn="seize">{{localize "TENCANDLES.Card.Seize"}}</button>{{/if}}
+    {{#if showChooseDeath}}<button type="button" data-tc-btn="chooseDeath" class="tc-btn-death">{{localize "TENCANDLES.Card.ChooseDeath"}}</button>{{/if}}
+    {{#if showApply}}<button type="button" data-tc-btn="apply">{{localize "TENCANDLES.Card.Apply"}}</button>{{/if}}
+  </div>
+  {{/if}}
+
+</div>

@@ -1,0 +1,164 @@
+{{!-- Ten Candles — Character sheet ridisegnata (candlelit). --}}
+<div class="tc-sheet {{#if editing}}is-editing{{/if}} {{#unless system.alive}}is-dead{{/unless}}">
+
+  {{!-- Header --}}
+  <header class="tcs-header">
+    <div class="tcs-id">
+      <div class="tcs-lbl">{{localize "TENCANDLES.Field.Concept"}}</div>
+      {{#if editing}}
+        <input class="tcs-name-input" type="text" name="name" value="{{actor.name}}" placeholder="Name" />
+        <input class="tcs-concept-input" type="text" name="system.concept" value="{{system.concept}}" placeholder="Concept" />
+      {{else}}
+        <div class="tcs-name">{{actor.name}}</div>
+        {{#if system.concept}}<div class="tcs-concept">{{system.concept}}</div>{{/if}}
+      {{/if}}
+    </div>
+    <div class="tcs-head-actions">
+      <button type="button" class="tcs-flame {{#unless system.alive}}out{{/unless}}" data-action="toggleAlive"
+              title="{{#if system.alive}}{{localize "TENCANDLES.Field.Alive"}}{{else}}{{localize "TENCANDLES.Status.Dead"}}{{/if}}">
+        <i class="fa-solid fa-fire"></i>
+      </button>
+      <button type="button" class="tcs-edit" data-action="toggleEdit">
+        {{#if editing}}<i class="fa-solid fa-check"></i> {{localize "TENCANDLES.Action.Done"}}
+        {{else}}<i class="fa-solid fa-pen"></i> {{localize "TENCANDLES.Action.Edit"}}{{/if}}
+      </button>
+    </div>
+  </header>
+
+  {{!-- Traits --}}
+  <section class="tcs-traits">
+    {{#each traitRows as |t|}}
+      <div class="tcs-trait {{#if t.burned}}burned{{/if}}">
+        <div class="tcs-lbl">{{localize t.label}}</div>
+        {{#if ../editing}}
+          <input class="tcs-inline" type="text" name="system.traits.{{t.key}}.value" value="{{t.value}}" {{#if t.burned}}disabled{{/if}} />
+        {{else}}
+          <div class="tcs-val">{{#if t.value}}{{t.value}}{{else}}—{{/if}}</div>
+        {{/if}}
+        {{#if t.burned}}
+          <span class="tcs-tag"><i class="fa-solid fa-check"></i> {{localize "TENCANDLES.Status.Burned"}}</span>
+        {{else}}
+          <button type="button" class="tcs-mini" data-action="burnTrait" data-trait="{{t.key}}" {{#unless t.usableNow}}disabled{{/unless}}>
+            <i class="fa-solid fa-fire-flame-simple"></i> {{localize "TENCANDLES.Action.Burn"}}
+          </button>
+        {{/if}}
+      </div>
+    {{/each}}
+  </section>
+
+  {{!-- Moment --}}
+  <section class="tcs-band tcs-moment {{#if system.moment.lived}}lived{{/if}}">
+    <div class="tcs-band-head">
+      <span class="tcs-lbl">{{localize "TENCANDLES.Field.Moment"}}</span>
+      {{#if system.moment.lived}}<span class="tcs-tag">{{localize "TENCANDLES.Status.Lived"}}</span>{{/if}}
+    </div>
+    {{#if editing}}
+      <input class="tcs-inline" type="text" name="system.moment.value" value="{{system.moment.value}}" {{#if system.moment.lived}}disabled{{/if}} />
+    {{else}}
+      <div class="tcs-txt">{{#if system.moment.value}}{{system.moment.value}}{{else}}—{{/if}}</div>
+    {{/if}}
+    {{#unless system.moment.lived}}
+      <div class="tcs-band-btns">
+        <button type="button" class="tcs-mini" data-action="liveMomentRoll"><i class="fa-solid fa-dice-d6"></i> {{localize "TENCANDLES.Action.LiveRoll"}}</button>
+        <button type="button" class="tcs-mini" data-action="liveMoment" data-success="true">{{localize "TENCANDLES.Action.LiveSuccess"}}</button>
+        <button type="button" class="tcs-mini" data-action="liveMoment" data-success="false">{{localize "TENCANDLES.Action.LiveFail"}}</button>
+      </div>
+    {{/unless}}
+  </section>
+
+  {{!-- Brink --}}
+  <section class="tcs-band tcs-brink {{#if system.brink.burned}}burned{{else if system.brink.available}}avail{{/if}}">
+    <div class="tcs-band-head">
+      <span class="tcs-lbl">{{localize "TENCANDLES.Field.Brink"}}</span>
+      <span class="tcs-tag {{#if system.brink.burned}}is-burned{{else if system.brink.available}}is-available{{else}}is-locked{{/if}}">
+        {{#if system.brink.burned}}<i class="fa-solid fa-ban"></i> {{localize "TENCANDLES.Status.Burned"}}
+        {{else if system.brink.available}}<i class="fa-solid fa-fire"></i> {{localize "TENCANDLES.Status.Available"}}
+        {{else}}<i class="fa-solid fa-lock"></i> {{localize "TENCANDLES.Status.Locked"}}{{/if}}
+      </span>
+    </div>
+    {{#if editing}}
+      <input class="tcs-inline" type="text" name="system.brink.value" value="{{system.brink.value}}" {{#if system.brink.burned}}disabled{{/if}} />
+    {{else}}
+      {{#if canSeeBrink}}
+        <div class="tcs-txt">{{#if system.brink.value}}{{system.brink.value}}{{else}}—{{/if}}</div>
+      {{else}}
+        <div class="tcs-txt tcs-secret"><i class="fa-solid fa-eye-slash"></i> {{localize "TENCANDLES.Brink.Secret"}}</div>
+      {{/if}}
+    {{/if}}
+  </section>
+
+  {{!-- Hope --}}
+  <section class="tcs-hope">
+    <span class="tcs-lbl">{{localize "TENCANDLES.Field.HopeDice"}}</span>
+    <div class="tcs-pips">
+      {{#each hopePips as |p|}}
+        <button type="button" class="tcs-pip {{#if p.on}}on{{/if}}" data-action="setHope" data-n="{{p.n}}" aria-label="Hope {{p.n}}">
+          <i class="fa-solid fa-fire"></i>
+        </button>
+      {{/each}}
+    </div>
+    <span class="tcs-hope-n">{{system.hope.dice}}</span>
+  </section>
+
+  {{!-- Conflitti --}}
+  <section class="tcs-actions">
+    <button type="button" class="tcs-btn" data-action="rollConflict" data-dire="false">{{localize "TENCANDLES.Sheet.Conflict"}}</button>
+    <button type="button" class="tcs-btn dire" data-action="rollConflict" data-dire="true">{{localize "TENCANDLES.Sheet.Dire"}}</button>
+  </section>
+
+  {{!-- Notes (ProseMirror) --}}
+  <section class="tcs-notes">
+    <div class="tcs-lbl">{{localize "TENCANDLES.Field.Notes"}}</div>
+    <prose-mirror name="system.notes" value="{{system.notes}}" {{#unless editable}}disabled{{/unless}}></prose-mirror>
+  </section>
+
+  {{!-- Final recording (sempre visibile) --}}
+  <section class="tcs-recording">
+    <div class="tcs-lbl">{{localize "TENCANDLES.Field.Recording"}}</div>
+    <div class="tcs-rec-row">
+      <input class="tcs-inline" type="text" name="system.recording.path" value="{{system.recording.path}}" placeholder="{{localize "TENCANDLES.Recording.Placeholder"}}" {{#unless editable}}readonly{{/unless}} />
+      {{#if editable}}
+      <button type="button" class="tcs-mini" data-action="pickRecording" title="{{localize "TENCANDLES.Action.PickRecording"}}"><i class="fa-solid fa-microphone-lines"></i></button>
+      {{/if}}
+      {{#if isGM}}{{#if system.recording.path}}
+      <button type="button" class="tcs-mini" data-action="playRecording" title="{{localize "TENCANDLES.Action.PlayRecording"}}"><i class="fa-solid fa-play"></i></button>
+      {{/if}}{{/if}}
+    </div>
+    <div class="tcs-rec-note">{{localize "TENCANDLES.Recording.Note"}}</div>
+  </section>
+
+  {{#unless system.alive}}
+    {{#if survivors.length}}
+    <section class="tcs-martyrdom">
+      <div class="tcs-lbl">{{localize "TENCANDLES.Martyrdom.Title"}}</div>
+      <div class="tcs-rec-row">
+        <select class="tcs-martyr-target">
+          {{#each survivors}}<option value="{{this.id}}">{{this.name}}</option>{{/each}}
+        </select>
+        <button type="button" class="tcs-mini" data-action="martyrdom" title="{{localize "TENCANDLES.Martyrdom.Grant"}}"><i class="fa-solid fa-fire-flame-curved"></i></button>
+      </div>
+      <div class="tcs-rec-note">{{localize "TENCANDLES.Martyrdom.Hint"}}</div>
+    </section>
+    {{/if}}
+  {{/unless}}
+
+  {{!-- Supplies / equipment --}}
+  <section class="tcs-supplies">
+    <div class="tcs-lbl">{{localize "TENCANDLES.Supply.Title"}}</div>
+    {{#each supplies}}
+      <div class="tcs-supply-row" data-item-id="{{this.id}}">
+        <span class="tcs-supply-qty">{{this.quantity}}×</span>
+        <span class="tcs-supply-name">{{this.name}}</span>
+        {{#if ../editable}}
+        <button type="button" class="tcs-mini" data-action="incSupply" title="+1"><i class="fa-solid fa-plus"></i></button>
+        <button type="button" class="tcs-mini" data-action="consumeSupply" title="{{localize "TENCANDLES.Supply.Consume"}}"><i class="fa-solid fa-minus"></i></button>
+        <button type="button" class="tcs-mini" data-action="deleteSupply" title="{{localize "TENCANDLES.Supply.Delete"}}"><i class="fa-solid fa-trash"></i></button>
+        {{/if}}
+      </div>
+    {{/each}}
+    {{#if editable}}
+      <button type="button" class="tcs-mini tcs-add-supply" data-action="addSupply"><i class="fa-solid fa-plus"></i> {{localize "TENCANDLES.Supply.Add"}}</button>
+    {{/if}}
+  </section>
+
+</div>

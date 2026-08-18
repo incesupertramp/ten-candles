@@ -1,0 +1,160 @@
+{{!-- Ten Candles — Board top-down: seduta spiritica con tavola ouija. --}}
+<div class="tc-board-wrap {{#if isLastStand}}is-laststand{{/if}} {{#if isGameOver}}is-over{{/if}} {{#if noAnim}}is-noanim{{/if}}">
+
+  <div class="tc-board-stage">
+    <svg class="tc-board-svg" viewBox="0 0 800 830" role="img" xmlns="http://www.w3.org/2000/svg"
+         preserveAspectRatio="xMidYMid meet">
+      <title>Ten Candles seance</title>
+      <defs>
+        <radialGradient id="tcRoom" cx="50%" cy="48%" r="64%"><stop offset="0%" stop-color="#1c150d"/><stop offset="100%" stop-color="#060404"/></radialGradient>
+        <radialGradient id="tcTable" cx="46%" cy="42%" r="64%"><stop offset="0%" stop-color="#5e4229"/><stop offset="55%" stop-color="#412c1a"/><stop offset="100%" stop-color="#291a0f"/></radialGradient>
+        <linearGradient id="tcRim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3c2917"/><stop offset="100%" stop-color="#1a110a"/></linearGradient>
+        <linearGradient id="tcBoard" x1="0" y1="0" x2="0.25" y2="1"><stop offset="0%" stop-color="#c9a877"/><stop offset="50%" stop-color="#b8965f"/><stop offset="100%" stop-color="#9c7c4a"/></linearGradient>
+        <radialGradient id="tcGlow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f3b657" stop-opacity=".7"/><stop offset="100%" stop-color="#f3b657" stop-opacity="0"/></radialGradient>
+        <radialGradient id="tcFlame" cx="50%" cy="60%" r="60%"><stop offset="0%" stop-color="#fff6da"/><stop offset="42%" stop-color="#f6b43e"/><stop offset="100%" stop-color="#d9701f" stop-opacity="0"/></radialGradient>
+        <linearGradient id="tcWax" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#9c8560"/><stop offset="40%" stop-color="#f0e4c8"/><stop offset="100%" stop-color="#8a7452"/></linearGradient>
+        <radialGradient id="tcSpirit" cx="42%" cy="36%" r="70%"><stop offset="0%" stop-color="#fff0cc" stop-opacity=".95"/><stop offset="45%" stop-color="#e8a54b" stop-opacity=".55"/><stop offset="100%" stop-color="#7a4a1c" stop-opacity=".3"/></radialGradient>
+        <radialGradient id="tcCam" cx="50%" cy="40%" r="65%"><stop offset="0%" stop-color="#2a3138"/><stop offset="100%" stop-color="#0d1114"/></radialGradient>
+        <radialGradient id="tcVig" cx="50%" cy="48%" r="62%"><stop offset="62%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".64"/></radialGradient>
+      </defs>
+
+      <rect width="800" height="830" fill="url(#tcRoom)"/>
+
+      {{!-- Giocatori seduti attorno --}}
+      {{#each seats}}
+        <g transform="translate({{this.x}},{{this.y}})">
+          <circle r="40" fill="#0b0805" stroke="#7a5a2c" stroke-width="5"/>
+          <circle r="40" fill="url(#tcCam)"/>
+          {{#if this.img}}
+          <clipPath id="tcSeatClip{{@index}}"><circle r="39"/></clipPath>
+          <image href="{{this.img}}" x="-40" y="-40" width="80" height="80"
+            preserveAspectRatio="xMidYMid slice" clip-path="url(#tcSeatClip{{@index}})" class="tc-seat-portrait"/>
+          {{/if}}
+          {{#if this.userId}}
+          <foreignObject x="-38" y="-38" width="76" height="76">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;border-radius:50%;overflow:hidden">
+              <video data-tc-cam="{{this.userId}}" autoplay muted playsinline
+                style="width:100%;height:100%;object-fit:cover;background:transparent;display:none"></video>
+            </div>
+          </foreignObject>
+          {{/if}}
+          <circle r="40" fill="none" stroke="#d59a4a" stroke-width="1.6"/>
+          {{#unless this.img}}<text y="6" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#9c8b72">{{this.initial}}</text>{{/unless}}
+        </g>
+        {{#if this.label}}<text x="{{this.labelX}}" y="{{this.labelY}}" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#b7a888">{{this.label}}</text>{{/if}}
+      {{/each}}
+
+      {{!-- Tavolo tondo di legno --}}
+      <ellipse cx="400" cy="414" rx="332" ry="326" fill="#000" opacity=".45"/>
+      <circle cx="400" cy="400" r="330" fill="url(#tcRim)"/>
+      <circle cx="400" cy="400" r="308" fill="url(#tcTable)" stroke="#180f08" stroke-width="2"/>
+      <g stroke="#5a3f26" fill="none" opacity=".28"><circle cx="392" cy="394" r="286" stroke-width="1.5"/><circle cx="410" cy="406" r="238" stroke-width="1.2"/><circle cx="388" cy="410" r="188" stroke-width="1.2"/></g>
+
+      {{!-- Cerchio rituale --}}
+      <g class="tc-ritual" opacity="{{ritualOpacity}}" fill="none">
+        <circle cx="400" cy="400" r="292" stroke-width="1.6"/>
+        <path class="tc-ritual-star" d="M400,108 L571.6,636.2 L122.3,309.8 L677.7,309.8 L228.4,636.2 Z" stroke-width="1.3" opacity=".7"/>
+      </g>
+
+      {{!-- Tavola OUIJA --}}
+      <rect x="169" y="250" width="462" height="300" rx="16" fill="#120c06" opacity=".5"/>
+      <rect x="169" y="250" width="462" height="300" rx="16" fill="url(#tcBoard)" stroke="#5a3f22" stroke-width="3"/>
+      <rect x="181" y="262" width="438" height="276" rx="11" fill="none" stroke="#6a4a24" stroke-width="1.4" opacity=".5"/>
+      {{!-- sole --}}
+      <g transform="translate(217,296)" stroke="#3a2a18"><g stroke-width="2"><line x1="0" y1="-22" x2="0" y2="-16"/><line x1="16" y1="-16" x2="12" y2="-12"/><line x1="22" y1="0" x2="16" y2="0"/><line x1="16" y1="16" x2="12" y2="12"/><line x1="0" y1="22" x2="0" y2="16"/><line x1="-16" y1="16" x2="-12" y2="12"/><line x1="-22" y1="0" x2="-16" y2="0"/><line x1="-16" y1="-16" x2="-12" y2="-12"/></g><circle r="14" fill="none" stroke-width="2.5"/><circle cx="-5" cy="-3" r="1.6" fill="#3a2a18" stroke="none"/><circle cx="5" cy="-3" r="1.6" fill="#3a2a18" stroke="none"/><path d="M-5,4 Q0,8 5,4" fill="none" stroke-width="1.6"/></g>
+      {{!-- luna + stelle --}}
+      <g transform="translate(583,296)" stroke="#3a2a18" fill="#3a2a18"><path d="M6,-16 a17 17 0 1 0 4 30 a13 13 0 1 1 -4 -30 Z" fill="none" stroke-width="2.5"/><circle cx="-1" cy="-2" r="1.4"/><path d="M-4,4 Q-1,6 2,4" fill="none" stroke-width="1.4"/><path d="M24,-14 l2,4 4,2 -4,2 -2,4 -2,-4 -4,-2 4,-2 Z" stroke="none"/><path d="M20,8 l1.4,3 3,1.4 -3,1.4 -1.4,3 -1.4,-3 -3,-1.4 3,-1.4 Z" stroke="none"/></g>
+      <text x="290" y="302" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#3a2a18">YES</text>
+      <text x="400" y="306" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="34" letter-spacing="3" fill="#2e2013">OUIJA</text>
+      <text x="510" y="302" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#3a2a18">NO</text>
+      <g fill="#2e2013" font-family="Georgia,serif" font-weight="bold">
+        {{#each ouija.row1}}<text x="{{this.x}}" y="{{this.y}}" text-anchor="middle" font-size="{{this.size}}">{{this.ch}}</text>{{/each}}
+        {{#each ouija.row2}}<text x="{{this.x}}" y="{{this.y}}" text-anchor="middle" font-size="{{this.size}}">{{this.ch}}</text>{{/each}}
+        {{#each ouija.nums}}<text x="{{this.x}}" y="{{this.y}}" text-anchor="middle" font-size="{{this.size}}">{{this.ch}}</text>{{/each}}
+      </g>
+      <text x="400" y="532" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" font-size="19" letter-spacing="4" fill="#2e2013">GOOD BYE</text>
+
+      {{!-- Candele in anello (con fumo + alone caldo) --}}
+      {{#each candles}}
+        {{#if this.lit}}
+          <g transform="translate({{this.x}},{{this.y}})" {{#if ../isGM}}data-action="snuff" data-index="{{this.index}}" class="tc-candle-click" role="button" tabindex="0"{{/if}}>
+            <ellipse class="tc-pool" cx="0" cy="9" rx="18" ry="8" fill="url(#tcGlow)" opacity=".5"/>
+            <ellipse cx="0" cy="7" rx="8" ry="3" fill="#000" opacity=".3"/>
+            <rect x="-6" y="-13" width="12" height="21" rx="3" fill="url(#tcWax)"/>
+            <ellipse cx="0" cy="-13" rx="6" ry="2.4" fill="#f5e9ce"/>
+            <path class="tc-smoke-lit" style="animation-delay:{{this.delay}}s" d="M0,-24 q5,-8 0,-18 q-5,-9 0,-18" fill="none" stroke="#cdbfa0" stroke-width="1.1"/>
+            <circle class="tc-halo" style="animation-delay:{{this.delay}}s" cx="0" cy="-22" r="16" fill="url(#tcGlow)"/>
+            <circle class="tc-flame" style="animation-delay:{{this.delay}}s" cx="0" cy="-21" r="7.5" fill="url(#tcFlame)"/>
+            {{#if ../isGM}}<circle cx="0" cy="-8" r="26" fill="transparent"/>{{/if}}
+          </g>
+        {{else}}
+          <g transform="translate({{this.x}},{{this.y}})">
+            <ellipse cx="0" cy="8" rx="12" ry="5" fill="#584b37" opacity=".5"/>
+            <ellipse cx="0" cy="7" rx="8" ry="3" fill="#000" opacity=".3"/>
+            <rect x="-6" y="-11" width="12" height="19" rx="3" fill="#5a4d38"/>
+            <ellipse cx="0" cy="-11" rx="6" ry="2.4" fill="#6a5c45"/>
+            <path class="tc-smoke-dark" d="M0,-14 q4,-6 0,-12" fill="none" stroke="#4a4034" stroke-width="1.1" opacity=".45"/>
+          </g>
+        {{/if}}
+      {{/each}}
+
+      {{!-- Planchette-master (punta a una lettera; scivola quando il master agisce) --}}
+      <g class="tc-planchette" transform="translate({{planchette.x}},{{planchette.y}})">
+        <g transform="rotate({{planchette.rot}})">
+          <g class="tc-planchette-idle">
+          <g class="tc-spirit-glow"><ellipse cx="0" cy="-8" rx="40" ry="42" fill="url(#tcGlow)"/></g>
+          <path d="M0,-24 C-7,-37 -32,-34 -32,-14 C-32,4 -14,20 0,38 C14,20 32,4 32,-14 C32,-34 7,-37 0,-24 Z" fill="#2a1e12" stroke="#7a5a2c" stroke-width="2.5"/>
+          <circle cx="0" cy="-8" r="21" fill="#05080a" stroke="#8a6a34" stroke-width="3"/>
+          {{#if spirit.img}}
+          <clipPath id="tcSpiritClip"><circle cx="0" cy="-8" r="19"/></clipPath>
+          <image href="{{spirit.img}}" x="-19" y="-27" width="38" height="38" preserveAspectRatio="xMidYMid slice" clip-path="url(#tcSpiritClip)" class="tc-seat-portrait"/>
+          {{/if}}
+          {{#if spirit.userId}}
+          <foreignObject x="-20" y="-28" width="40" height="40">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;border-radius:50%;overflow:hidden">
+              <video data-tc-cam="{{spirit.userId}}" autoplay muted playsinline
+                style="width:100%;height:100%;object-fit:cover;background:transparent;display:none"></video>
+            </div>
+          </foreignObject>
+          {{/if}}
+          {{#unless spirit.img}}<circle cx="0" cy="-8" r="19" fill="url(#tcSpirit)"/>{{/unless}}
+          <circle cx="0" cy="-8" r="21" fill="none" stroke="#f0c877" stroke-width="1" opacity=".7"/>
+          {{#unless spirit.userId}}{{#unless spirit.img}}<text x="0" y="-1" text-anchor="middle" font-family="Georgia,serif" font-size="15" fill="#fff2d6">{{spirit.initial}}</text>{{/unless}}{{/unless}}
+          </g>
+        </g>
+      </g>
+
+      {{!-- Info in alto --}}
+      {{#if isGameOver}}
+        <rect x="316" y="14" width="168" height="46" rx="10" fill="#0d0a07" opacity=".85" stroke="#3a2f22" stroke-width="1"/>
+        <text x="400" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="17" letter-spacing="1" fill="#8a7c66">The world is dark</text>
+      {{else}}
+        <rect x="316" y="14" width="168" height="46" rx="10" fill="#0d0a07" opacity=".82" stroke="#3a2f22" stroke-width="1"/>
+        <text class="tc-center-count" x="400" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#f0c877">{{candlesLit}} / {{total}} lit</text>
+        <text x="400" y="53" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#c9b98f">Scene {{sceneNumber}} &#183; Player {{playerPool}} &#183; GM {{gmPool}}</text>
+      {{/if}}
+
+      {{!-- Wash rosso del Last Stand --}}
+      <rect class="tc-ls-wash" width="800" height="830" fill="#4a0d0d"/>
+      <rect width="800" height="830" fill="url(#tcVig)"/>
+    </svg>
+  </div>
+
+  {{#if isGM}}
+  <div class="tc-board-controls">
+    {{#if confirming}}
+      <span class="tc-confirm-text">{{localize "TENCANDLES.Tracker.NewGameConfirm"}}</span>
+      <button type="button" data-action="newGameConfirm">{{localize "TENCANDLES.Confirm.Yes"}}</button>
+      <button type="button" data-action="newGameCancel">{{localize "TENCANDLES.Confirm.No"}}</button>
+    {{else}}
+      <button type="button" data-action="darkenCandle" {{#if isGameOver}}disabled{{/if}}>
+        <i class="fa-solid fa-fire-flame-simple"></i> {{localize "TENCANDLES.Tracker.Darken"}}
+      </button>
+      <button type="button" data-action="newGame">
+        <i class="fa-solid fa-rotate-right"></i> {{localize "TENCANDLES.Tracker.NewGame"}}
+      </button>
+    {{/if}}
+  </div>
+  {{/if}}
+
+</div>
