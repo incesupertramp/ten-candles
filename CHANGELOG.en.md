@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.2 — Portraits on the board (webcam fallback)
+
+- The "face" slots around the table now show the **character portrait** (or the user's avatar) when **no live webcam stream is available**. Handy when Foundry A/V isn't available (it needs HTTPS/secure context): the seance stays populated without SSL. If a webcam stream is present, the video overlays as before; if neither portrait nor webcam exist, the initial is shown.
+
+## v0.4.1 — System cover image
+
+- Added the system **cover image** (`assets/cover.png`) via the manifest `media` (cover + setup) and `background` fields: the "Ten Candles" tile in Foundry's system browser now shows the title art instead of being blank.
+
 ## v0.4.0 — Table safety, scenario, book of truths
 
 - **Safety tools**: a new **Scenario & Safety** app (tracker button, `game.system.api.openSafety()`). It includes an **X-Card** anyone can tap (a chat announcement to pause/adjust a scene) and shared **Lines & Veils** from Session Zero.

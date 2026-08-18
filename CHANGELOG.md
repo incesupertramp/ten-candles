@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.2 — Ritratti sulla plancia (fallback senza webcam)
+
+- Gli slot "volto" attorno al tavolo ora mostrano il **ritratto del personaggio** (o l'avatar dell'utente) quando **non c'è un flusso webcam live**. Utile quando l'A/V di Foundry non è disponibile (richiede HTTPS/secure context): la seduta resta popolata senza bisogno di SSL. Se un flusso webcam è disponibile, il video si sovrappone come prima; se manca sia ritratto che webcam, resta l'iniziale.
+
+## v0.4.1 — Immagine del sistema (cover)
+
+- Aggiunta l'**immagine di copertina** del sistema (`assets/cover.png`) tramite i campi `media` (cover + setup) e `background` del manifest: ora la tile "Ten Candles" nel browser dei sistemi di Foundry mostra l'arte del titolo invece di essere vuota.
+
 ## v0.4.0 — Sicurezza al tavolo, scenario, libro delle Verità
 
 - **Strumenti di sicurezza**: nuova app **Scenario & Sicurezza** (pulsante nel tracker, `game.system.api.openSafety()`). Include una **X-Card** che chiunque può premere (annuncio in chat per fermare/aggiustare una scena) e i **Lines & Veils** condivisi della Session Zero.

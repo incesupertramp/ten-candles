@@ -2,6 +2,8 @@
 
 **English** · [Italiano](README.it.md)
 
+![Ten Candles](assets/cover.png)
+
 ![Foundry](https://img.shields.io/badge/Foundry-v13%20%7C%20v14-informational)
 ![Version](https://img.shields.io/badge/version-0.3.1-orange)
 ![License](https://img.shields.io/badge/code%20license-MIT-green)
