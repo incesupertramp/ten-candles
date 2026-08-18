@@ -2,10 +2,10 @@
 
 [English](README.md) · **Italiano**
 
-![Ten Candles](assets/cover.png)
+![Ten Candles](https://raw.githubusercontent.com/incesupertramp/ten-candles/main/assets/cover.png)
 
 ![Foundry](https://img.shields.io/badge/Foundry-v13%20%7C%20v14-informational)
-![Version](https://img.shields.io/badge/version-0.3.1-orange)
+![Version](https://img.shields.io/badge/version-0.4.2-orange)
 ![License](https://img.shields.io/badge/code%20license-MIT-green)
 ![Status](https://img.shields.io/badge/status-beta-yellow)
 
